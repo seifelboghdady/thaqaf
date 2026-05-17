@@ -1,0 +1,312 @@
+@import url('../../../assets/css/global.css');
+
+/* ── Auth Layout ────────────────────────────── */
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ── Left Panel — Brand ─────────────────────── */
+.auth-brand {
+  background: var(--brand-800);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative circles */
+.auth-brand::before {
+  content: '';
+  position: absolute;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.06);
+  top: -100px; left: -80px;
+}
+.auth-brand::after {
+  content: '';
+  position: absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+  bottom: 60px; right: -60px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.brand-logo-icon {
+  width: 44px; height: 44px;
+  background: var(--accent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -1px;
+}
+.brand-logo-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brand-content {
+  position: relative;
+  z-index: 1;
+}
+.brand-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.brand-content p {
+  color: rgba(255,255,255,.6);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.brand-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+.brand-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,.75);
+  font-size: 0.88rem;
+}
+.brand-feature-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+/* Floating book decoration */
+.brand-decoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: .04;
+  font-size: 18rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ── Right Panel — Form ─────────────────────── */
+.auth-form-panel {
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  overflow-y: auto;
+}
+
+.auth-form-wrap {
+  width: 100%;
+  max-width: 420px;
+  animation: fadeUp .5s ease both;
+}
+
+.auth-header {
+  margin-bottom: 32px;
+}
+.auth-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+.auth-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Form ───────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-icon-wrap {
+  position: relative;
+}
+.input-icon-wrap .form-input {
+  padding-right: 42px;
+}
+.input-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-hint);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+/* Password toggle */
+.input-eye {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-hint);
+  cursor: pointer;
+  padding: 4px;
+  transition: color var(--transition);
+  font-size: 1rem;
+}
+.input-eye:hover { color: var(--brand-500); }
+
+/* ── Submit button ──────────────────────────── */
+.auth-submit {
+  margin-top: 4px;
+  padding: 13px;
+  font-size: 0.95rem;
+}
+
+/* ── Footer link ────────────────────────────── */
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.auth-footer a {
+  color: var(--brand-500);
+  font-weight: 600;
+  transition: color var(--transition);
+}
+.auth-footer a:hover { color: var(--brand-600); }
+
+/* ── Forgot password ────────────────────────── */
+.auth-forgot {
+  font-size: 0.82rem;
+  color: var(--brand-500);
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--transition);
+  display: block;
+  margin-top: -8px;
+}
+.auth-forgot:hover { color: var(--brand-600); }
+
+/* ── Terms checkbox ─────────────────────────── */
+.auth-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.auth-terms input[type=checkbox] {
+  margin-top: 2px;
+  accent-color: var(--brand-500);
+  width: 15px; height: 15px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.auth-terms a {
+  color: var(--brand-500);
+  font-weight: 600;
+}
+
+/* ── Steps indicator (register) ─────────────── */
+.auth-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 28px;
+}
+.auth-step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.step-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 2px solid var(--border);
+  color: var(--text-hint);
+  background: var(--bg);
+  transition: all var(--transition);
+}
+.step-num.active {
+  background: var(--brand-500);
+  border-color: var(--brand-500);
+  color: #fff;
+}
+.step-num.done {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  transition: background var(--transition);
+}
+.step-line.done { background: var(--success); }
+.step-label {
+  font-size: 0.72rem;
+  color: var(--text-hint);
+  margin-top: 4px;
+  text-align: center;
+  white-space: nowrap;
+}
+.step-label.active { color: var(--brand-500); font-weight: 600; }
+
+.step-wrapper {
+  display: none;
+  flex-direction: column;
+  gap: 18px;
+  animation: fadeUp .35s ease both;
+}
+.step-wrapper.active { display: flex; }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 860px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-brand { display: none; }
+  .auth-form-panel { padding: 32px 20px; }
+}

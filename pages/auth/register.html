@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إنشاء حساب — ثقف</title>
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- ── Left: Brand Panel ── -->
+  <aside class="auth-brand">
+    <div class="brand-decoration">ث</div>
+
+    <div class="brand-logo">
+      <div class="brand-logo-icon">ث</div>
+      <span class="brand-logo-name">ثقف</span>
+    </div>
+
+    <div class="brand-content">
+      <h2>انضم إلى مجتمع القرّاء</h2>
+      <p>سجّل الآن واحصل على توصيات مخصّصة وعروض حصرية لأعضاء ثقف.</p>
+    </div>
+
+    <div class="brand-features">
+      <div class="brand-feature">
+        <div class="brand-feature-icon"><i class="fa-solid fa-gift"></i></div>
+        <span>خصم 10% على أول طلب لك</span>
+      </div>
+      <div class="brand-feature">
+        <div class="brand-feature-icon"><i class="fa-solid fa-bell"></i></div>
+        <span>إشعارات بأحدث الإصدارات</span>
+      </div>
+      <div class="brand-feature">
+        <div class="brand-feature-icon"><i class="fa-solid fa-star"></i></div>
+        <span>قيّم واستعرض الكتب</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Right: Form Panel ── -->
+  <main class="auth-form-panel">
+    <div class="auth-form-wrap">
+
+      <div class="auth-header">
+        <h1>إنشاء حساب جديد</h1>
+        <p>أدخل بياناتك لإنشاء حسابك في دقيقتين</p>
+      </div>
+
+      <!-- Steps indicator -->
+      <div class="auth-steps" id="stepsBar">
+        <div class="auth-step">
+          <div class="step-num active" id="stepNum1">1</div>
+        </div>
+        <div class="step-line" id="stepLine1"></div>
+        <div class="auth-step" style="justify-content:center">
+          <div class="step-num" id="stepNum2">2</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;margin-bottom:24px;">
+        <span class="step-label active" id="stepLabel1">البيانات الشخصية</span>
+        <span class="step-label" id="stepLabel2">الأمان</span>
+      </div>
+
+      <form id="registerForm" novalidate>
+
+        <!-- ── Step 1 ── -->
+        <div class="step-wrapper active" id="step1">
+
+          <div class="form-group">
+            <label class="form-label" for="fullName">الاسم الكامل</label>
+            <div class="input-icon-wrap">
+              <i class="fa-regular fa-user input-icon"></i>
+              <input type="text" id="fullName" class="form-input" placeholder="محمد أحمد">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regEmail">البريد الإلكتروني</label>
+            <div class="input-icon-wrap">
+              <i class="fa-regular fa-envelope input-icon"></i>
+              <input type="email" id="regEmail" class="form-input" placeholder="example@email.com" dir="ltr">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">رقم الهاتف <span style="color:var(--text-hint);font-weight:400">(اختياري)</span></label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-phone input-icon"></i>
+              <input type="tel" id="phone" class="form-input" placeholder="01xxxxxxxxx" dir="ltr">
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-full auth-submit" id="nextBtn">
+            التالي <i class="fa-solid fa-arrow-left" style="font-size:.85rem"></i>
+          </button>
+        </div>
+
+        <!-- ── Step 2 ── -->
+        <div class="step-wrapper" id="step2">
+
+          <div class="form-group">
+            <label class="form-label" for="regPassword">كلمة المرور</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="password" id="regPassword" class="form-input" placeholder="8 أحرف على الأقل" dir="ltr">
+              <button type="button" class="input-eye" id="toggleReg" aria-label="إظهار/إخفاء">
+                <i class="fa-regular fa-eye" id="eyeReg"></i>
+              </button>
+            </div>
+            <!-- Password strength -->
+            <div id="strengthBar" style="height:4px;border-radius:4px;background:var(--border);margin-top:6px;overflow:hidden;">
+              <div id="strengthFill" style="height:100%;width:0%;border-radius:4px;transition:all .3s ease;"></div>
+            </div>
+            <span id="strengthLabel" style="font-size:.75rem;color:var(--text-hint);"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">تأكيد كلمة المرور</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="password" id="confirmPassword" class="form-input" placeholder="••••••••" dir="ltr">
+            </div>
+          </div>
+
+          <label class="auth-terms">
+            <input type="checkbox" id="agreeTerms">
+            <span>أوافق على <a href="#">الشروط والأحكام</a> وسياسة <a href="#">الخصوصية</a></span>
+          </label>
+
+          <div style="display:flex;gap:10px;">
+            <button type="button" class="btn btn-outline" id="backBtn" style="flex:0 0 auto;padding:13px 18px;">
+              <i class="fa-solid fa-arrow-right" style="font-size:.85rem"></i>
+            </button>
+            <button type="submit" class="btn btn-primary btn-full auth-submit" id="submitRegBtn">
+              إنشاء الحساب
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+
+      <div class="auth-footer">
+        لديك حساب بالفعل؟
+        <a href="login.html">تسجيل الدخول</a>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<div id="toast-container"></div>
+
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/utils.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

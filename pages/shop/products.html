@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المتجر — ثقف</title>
+  <link rel="stylesheet" href="shop.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav class="navbar" id="mainNavbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="pages/home/index.html" class="nav-logo">
+        <div class="nav-logo-icon">ث</div>
+        <span class="nav-logo-name">ثقف</span>
+      </a>
+      <div class="nav-links">
+        <a href="/pages/homepage/index.html"       class="nav-link" data-page="home">الرئيسية</a>
+        <a href="/pages/shop/products.html"    class="nav-link" data-page="shop">المتجر</a>
+        <a href="/pages/orders/my-orders.html" class="nav-link" data-page="orders">طلباتي</a>
+      </div>
+      <div class="nav-search">
+        <i class="fa-solid fa-magnifying-glass nav-search-icon"></i>
+        <input type="text" placeholder="ابحث عن كتاب..." id="navSearchInput">
+      </div>
+      <div class="nav-actions">
+        <a href="/pages/cart/cart.html" class="nav-icon-btn">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="nav-badge" id="cartBadge" style="display:none">0</span>
+        </a>
+        <div class="nav-auth" id="navGuest">
+          <a href="/pages/auth/login.html"    class="btn btn-outline btn-sm">دخول</a>
+          <a href="/pages/auth/register.html" class="btn btn-primary btn-sm">حساب جديد</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+          <button class="nav-avatar" id="navAvatar"><span id="avatarText">م</span></button>
+          <div class="nav-dropdown" id="navDropdown">
+            <div style="padding:10px 12px 8px;border-bottom:1px solid var(--border);margin-bottom:4px;">
+              <div style="font-size:.85rem;font-weight:600;color:var(--text-main)" id="dropUserName"></div>
+              <div style="font-size:.75rem;color:var(--text-hint)" id="dropUserEmail"></div>
+            </div>
+            <a href="/pages/profile/profile.html"  class="nav-dropdown-item"><i class="fa-regular fa-user"></i> حسابي</a>
+            <a href="/pages/orders/my-orders.html" class="nav-dropdown-item"><i class="fa-regular fa-bag-shopping"></i> طلباتي</a>
+            <a href="/admin/index.html" class="nav-dropdown-item hidden" id="adminLink"><i class="fa-solid fa-gauge"></i> لوحة الإدارة</a>
+            <div class="nav-dropdown-divider"></div>
+            <button class="nav-dropdown-item danger" data-action="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> خروج</button>
+          </div>
+        </div>
+        <button class="nav-mobile-toggle" id="mobileToggle"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/pages/home/index.html"       class="nav-mobile-link" data-page="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+    <a href="/pages/shop/products.html"    class="nav-mobile-link" data-page="shop"><i class="fa-solid fa-store"></i> المتجر</a>
+    <a href="/pages/orders/my-orders.html" class="nav-mobile-link" data-page="orders"><i class="fa-solid fa-box"></i> طلباتي</a>
+    <a href="/pages/profile/profile.html"  class="nav-mobile-link" data-page="profile"><i class="fa-solid fa-user"></i> حسابي</a>
+  </div>
+</nav>
+
+<!-- ══════════════ PAGE HEADER ══════════════ -->
+<div class="shop-header">
+  <div class="container">
+    <div class="shop-header-inner">
+      <div>
+        <div class="shop-breadcrumb">
+          <a href="/thaqaf/pages/home/index.html">الرئيسية</a>
+          <i class="fa-solid fa-chevron-left"></i>
+          <span>المتجر</span>
+        </div>
+        <h1>متجر الكتب</h1>
+        <p>اكتشف مجموعتنا المختارة من كتب البرمجة وإدارة الوقت</p>
+      </div>
+      <button class="btn mobile-filter-btn" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2);" id="mobileFilterBtn">
+        <i class="fa-solid fa-sliders"></i> الفلاتر
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SHOP LAYOUT ══════════════ -->
+<div class="container">
+  <div class="shop-layout">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="filters-sidebar" id="filtersSidebar">
+      <div class="filters-header">
+        <h3><i class="fa-solid fa-sliders" style="color:var(--brand-400);margin-left:6px"></i> الفلاتر</h3>
+        <button class="filters-clear" id="clearAllFilters">مسح الكل</button>
+      </div>
+
+      <!-- Search -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="search">
+          بحث <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-body" id="filter-search">
+          <div style="position:relative;">
+            <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text-hint);font-size:.8rem;pointer-events:none"></i>
+            <input type="text" id="searchInput" class="form-input" placeholder="اسم الكتاب أو الكاتب..." style="padding-right:32px;font-size:.83rem;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="category">
+          الفئة <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-body" id="filter-category">
+          <label class="filter-check">
+            <input type="checkbox" value="programming" class="cat-filter"> برمجة
+            <span class="filter-check-count">120</span>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" value="productivity" class="cat-filter"> إدارة الوقت
+            <span class="filter-check-count">85</span>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" value="selfdev" class="cat-filter"> تطوير الذات
+            <span class="filter-check-count">64</span>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" value="design" class="cat-filter"> تصميم
+            <span class="filter-check-count">42</span>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" value="business" class="cat-filter"> أعمال
+            <span class="filter-check-count">55</span>
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" value="data" class="cat-filter"> بيانات وذكاء اصطناعي
+            <span class="filter-check-count">38</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="price">
+          السعر (جنيه) <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-body" id="filter-price">
+          <div class="price-inputs">
+            <input type="number" id="priceMin" placeholder="من" min="0" value="0">
+            <input type="number" id="priceMax" placeholder="إلى" min="0" value="1000">
+          </div>
+          <input type="range" class="price-slider" id="priceSlider" min="0" max="1000" value="1000">
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-hint);margin-top:4px;">
+            <span>0 ج</span><span>1000 ج</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rating -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="rating">
+          التقييم <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-body" id="filter-rating">
+          <div class="rating-option" data-rating="4">
+            <span class="rating-stars">★★★★☆</span>
+            <span class="rating-label">4+ نجوم</span>
+          </div>
+          <div class="rating-option" data-rating="3">
+            <span class="rating-stars">★★★☆☆</span>
+            <span class="rating-label">3+ نجوم</span>
+          </div>
+          <div class="rating-option" data-rating="0">
+            <span class="rating-stars">★☆☆☆☆</span>
+            <span class="rating-label">الكل</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Availability -->
+      <div class="filter-section">
+        <div class="filter-section-title" data-toggle="avail">
+          الحالة <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-body" id="filter-avail">
+          <label class="filter-check">
+            <input type="checkbox" id="filterDiscount"> عروض فقط
+          </label>
+          <label class="filter-check">
+            <input type="checkbox" id="filterNew"> وصل حديثاً
+          </label>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── PRODUCTS AREA ── -->
+    <div class="products-area">
+
+      <!-- Toolbar -->
+      <div class="products-toolbar">
+        <div class="toolbar-left">
+          <span class="products-count">عرض <strong id="countDisplay">0</strong> كتاب</span>
+          <div class="active-filters" id="activeFilters"></div>
+        </div>
+        <div class="toolbar-right">
+          <select class="sort-select" id="sortSelect">
+            <option value="default">الترتيب الافتراضي</option>
+            <option value="newest">الأحدث</option>
+            <option value="price-asc">السعر: من الأقل</option>
+            <option value="price-desc">السعر: من الأعلى</option>
+            <option value="rating">الأعلى تقييماً</option>
+          </select>
+          <div class="view-toggle">
+            <button class="view-btn active" id="gridViewBtn" title="عرض شبكي"><i class="fa-solid fa-grid-2"></i></button>
+            <button class="view-btn" id="listViewBtn" title="عرض قائمة"><i class="fa-solid fa-list"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products container -->
+      <div id="productsContainer" class="books-grid"></div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">ث</div>
+          <span class="footer-logo-name">ثقف</span>
+        </div>
+        <p class="footer-desc">متجرك المتخصص في أفضل كتب البرمجة وإدارة الوقت وتطوير الذات.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>المتجر</h4>
+        <div class="footer-links">
+          <a href="products.html">جميع الكتب</a>
+          <a href="products.html?cat=programming">برمجة</a>
+          <a href="products.html?cat=productivity">إدارة الوقت</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>حسابي</h4>
+        <div class="footer-links">
+          <a href="/thaqaf/pages/auth/login.html">تسجيل الدخول</a>
+          <a href="/thaqaf/pages/orders/my-orders.html">طلباتي</a>
+          <a href="/thaqaf/pages/profile/profile.html">البروفايل</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>مساعدة</h4>
+        <div class="footer-links">
+          <a href="#">الشحن والتوصيل</a>
+          <a href="#">تواصل معنا</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ثقف. جميع الحقوق محفوظة.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Filter overlay (mobile) -->
+<div class="filter-overlay" id="filterOverlay"></div>
+<div id="toast-container"></div>
+
+<script src="../../assets/js/utils.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="shop.js"></script>
+</body>
+</html>

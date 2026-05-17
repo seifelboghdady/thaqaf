@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ثقف — كتب البرمجة وإدارة الوقت</title>
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ -->
+<nav class="navbar" id="mainNavbar">
+  <div class="container">
+    <div class="navbar-inner">
+
+      <a href="/pages/homepage/index.html" class="nav-logo">
+        <div class="nav-logo-icon">ث</div>
+        <span class="nav-logo-name">ثقف</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/pages/homepage/index.html"          class="nav-link" data-page="home">الرئيسية</a>
+        <a href="/pages/shop/products.html"       class="nav-link" data-page="shop">المتجر</a>
+        <a href="/page/orders/my-orders.html"    class="nav-link" data-page="orders">طلباتي</a>
+      </div>
+
+      <div class="nav-search">
+        <i class="fa-solid fa-magnifying-glass nav-search-icon"></i>
+        <input type="text" placeholder="ابحث عن كتاب..." id="navSearchInput">
+      </div>
+
+      <div class="nav-actions">
+        <!-- Cart -->
+        <a href="/page/cart/cart.html" class="nav-icon-btn" title="العربة">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="nav-badge" id="cartBadge" style="display:none">0</span>
+        </a>
+
+        <!-- Guest buttons -->
+        <div class="nav-auth" id="navGuest">
+          <a href="/pages/auth/login.html" class="btn btn-outline btn-sm">دخول</a>
+          <a href="/pages/auth/register.html" class="btn btn-primary btn-sm">حساب جديد</a>
+        </div>
+
+        <!-- User avatar + dropdown -->
+        <div class="nav-user hidden" id="navUser">
+          <button class="nav-avatar" id="navAvatar">
+            <span id="avatarText">م</span>
+          </button>
+          <div class="nav-dropdown" id="navDropdown">
+            <div style="padding:10px 12px 8px; border-bottom:1px solid var(--border); margin-bottom:4px;">
+              <div style="font-size:.85rem;font-weight:600;color:var(--text-main)" id="dropUserName"></div>
+              <div style="font-size:.75rem;color:var(--text-hint)" id="dropUserEmail"></div>
+            </div>
+            <a href="/page/profile/profile.html" class="nav-dropdown-item">
+              <i class="fa-regular fa-user"></i> حسابي
+            </a>
+            <a href="/page/orders/my-orders.html" class="nav-dropdown-item">
+              <i class="fa-regular fa-bag-shopping"></i> طلباتي
+            </a>
+            <a href="/thaqaf/admin/index.html" class="nav-dropdown-item hidden" id="adminLink">
+              <i class="fa-solid fa-gauge"></i> لوحة الإدارة
+            </a>
+            <div class="nav-dropdown-divider"></div>
+            <button class="nav-dropdown-item danger" data-action="logout">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> تسجيل الخروج
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile toggle -->
+        <button class="nav-mobile-toggle" id="mobileToggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/pages/homepage/index.html"       class="nav-mobile-link" data-page="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+    <a href="/pages/shop/products.html"    class="nav-mobile-link" data-page="shop"><i class="fa-solid fa-store"></i> المتجر</a>
+    <a href="/pages/orders/my-orders.html" class="nav-mobile-link" data-page="orders"><i class="fa-solid fa-box"></i> طلباتي</a>
+    <a href="/pages/profile/profile.html"  class="nav-mobile-link" data-page="profile"><i class="fa-solid fa-user"></i> حسابي</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-star"></i>
+          أكثر من 500 كتاب مختار بعناية
+        </div>
+        <h1 class="hero-title">
+          طوّر نفسك بـ<span>أفضل كتب</span><br>البرمجة وإدارة الوقت
+        </h1>
+        <p class="hero-desc">
+          اكتشف مكتبة ثقف المتخصصة في الكتب التقنية وتطوير الذات، 
+          واختر ما يناسب مسيرتك المهنية.
+        </p>
+        <div class="hero-actions">
+          <a href="/pages/shop/products.html" class="btn btn-accent btn-lg">
+            تصفّح المتجر <i class="fa-solid fa-arrow-left"></i>
+          </a>
+          <a href="#featured" class="btn btn-lg" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2);">
+            أبرز الكتب
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">500+</div>
+            <div class="hero-stat-label">كتاب متوفر</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">12k+</div>
+            <div class="hero-stat-label">عميل سعيد</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">4.9</div>
+            <div class="hero-stat-label">تقييم المتجر</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-book-stack">
+          <div class="hero-book">
+            <div class="hero-book-spine"></div>
+            <div class="hero-book-title">Clean Code</div>
+            <div class="hero-book-author">Robert C. Martin</div>
+          </div>
+          <div class="hero-book">
+            <div class="hero-book-spine"></div>
+            <div class="hero-book-title">Deep Work</div>
+            <div class="hero-book-author">Cal Newport</div>
+          </div>
+          <div class="hero-book">
+            <div class="hero-book-spine"></div>
+            <div class="hero-book-title">The Pragmatic Programmer</div>
+            <div class="hero-book-author">Hunt & Thomas</div>
+          </div>
+        </div>
+
+        <div class="hero-floating-badge">
+          <div class="badge-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          <div>
+            <div class="badge-text-main">شحن سريع</div>
+            <div class="badge-text-sub">توصيل لجميع المحافظات</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CATEGORIES STRIP
+══════════════════════════════════════════ -->
+<div class="categories-strip">
+  <div class="container">
+    <div class="categories-scroll" id="catStrip">
+      <button class="cat-chip active" data-cat="all">
+        <i class="fa-solid fa-border-all"></i> الكل
+      </button>
+      <button class="cat-chip" data-cat="programming">
+        <i class="fa-solid fa-code"></i> برمجة
+      </button>
+      <button class="cat-chip" data-cat="productivity">
+        <i class="fa-solid fa-clock"></i> إدارة الوقت
+      </button>
+      <button class="cat-chip" data-cat="selfdev">
+        <i class="fa-solid fa-brain"></i> تطوير الذات
+      </button>
+      <button class="cat-chip" data-cat="design">
+        <i class="fa-solid fa-pen-ruler"></i> تصميم
+      </button>
+      <button class="cat-chip" data-cat="business">
+        <i class="fa-solid fa-briefcase"></i> أعمال
+      </button>
+      <button class="cat-chip" data-cat="data">
+        <i class="fa-solid fa-chart-simple"></i> بيانات وذكاء اصطناعي
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FEATURED BOOKS
+══════════════════════════════════════════ -->
+<section id="featured">
+  <div class="container">
+    <div class="section-header-row section-header">
+      <div>
+        <p class="section-eyebrow">مختارات ثقف</p>
+        <h2 class="section-title">أبرز الكتب</h2>
+      </div>
+      <a href="/pages/shop/products.html" class="btn btn-outline btn-sm">
+        عرض الكل <i class="fa-solid fa-arrow-left"></i>
+      </a>
+    </div>
+
+    <div class="books-grid" id="featuredGrid">
+      <!-- Skeleton loaders -->
+      <div class="book-card book-card-skeleton" aria-hidden="true">
+        <div class="book-card-img-placeholder"></div>
+        <div class="book-card-body">
+          <div class="skel" style="height:12px;width:50%;margin-bottom:8px;"></div>
+          <div class="skel" style="height:16px;width:85%;margin-bottom:5px;"></div>
+          <div class="skel" style="height:12px;width:60%;margin-bottom:14px;"></div>
+          <div class="skel" style="height:14px;width:40%;"></div>
+        </div>
+      </div>
+      <div class="book-card book-card-skeleton" aria-hidden="true">
+        <div class="book-card-img-placeholder"></div>
+        <div class="book-card-body">
+          <div class="skel" style="height:12px;width:50%;margin-bottom:8px;"></div>
+          <div class="skel" style="height:16px;width:85%;margin-bottom:5px;"></div>
+          <div class="skel" style="height:12px;width:60%;margin-bottom:14px;"></div>
+          <div class="skel" style="height:14px;width:40%;"></div>
+        </div>
+      </div>
+      <div class="book-card book-card-skeleton" aria-hidden="true">
+        <div class="book-card-img-placeholder"></div>
+        <div class="book-card-body">
+          <div class="skel" style="height:12px;width:50%;margin-bottom:8px;"></div>
+          <div class="skel" style="height:16px;width:85%;margin-bottom:5px;"></div>
+          <div class="skel" style="height:12px;width:60%;margin-bottom:14px;"></div>
+          <div class="skel" style="height:14px;width:40%;"></div>
+        </div>
+      </div>
+      <div class="book-card book-card-skeleton" aria-hidden="true">
+        <div class="book-card-img-placeholder"></div>
+        <div class="book-card-body">
+          <div class="skel" style="height:12px;width:50%;margin-bottom:8px;"></div>
+          <div class="skel" style="height:16px;width:85%;margin-bottom:5px;"></div>
+          <div class="skel" style="height:12px;width:60%;margin-bottom:14px;"></div>
+          <div class="skel" style="height:14px;width:40%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROMO BANNER
+══════════════════════════════════════════ -->
+<section style="padding:0 0 64px">
+  <div class="container">
+    <div class="promo-banner">
+      <div class="promo-banner-content">
+        <h2>خصم 20% على أول طلب 🎉</h2>
+        <p>استخدم الكود الترويجي عند إتمام الطلب واستمتع بتوفير حقيقي</p>
+        <div class="promo-code-box" id="promoCopyBtn" title="انقر للنسخ">
+          <span>THAQAF20</span>
+          <i class="fa-regular fa-copy" id="promoCopyIcon"></i>
+        </div>
+      </div>
+      <div style="position:relative;z-index:1;">
+        <a href="/pages/shop/products.html" class="btn btn-accent btn-lg">
+          تسوّق الآن <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     NEW ARRIVALS
+══════════════════════════════════════════ -->
+<section style="padding-top:0">
+  <div class="container">
+    <div class="section-header-row section-header">
+      <div>
+        <p class="section-eyebrow">وصل حديثًا</p>
+        <h2 class="section-title">أحدث الإصدارات</h2>
+      </div>
+      <a href="/pages/shop/products.html?sort=newest" class="btn btn-outline btn-sm">
+        عرض الكل <i class="fa-solid fa-arrow-left"></i>
+      </a>
+    </div>
+    <div class="books-grid" id="newGrid">
+      <div class="book-card book-card-skeleton" aria-hidden="true">
+        <div class="book-card-img-placeholder"></div>
+        <div class="book-card-body">
+          <div class="skel" style="height:12px;width:50%;margin-bottom:8px;"></div>
+          <div class="skel" style="height:16px;width:85%;margin-bottom:14px;"></div>
+          <div class="skel" style="height:14px;width:40%;"></div>
+        </div>
+      </div>
+      <div class="book-card book-card-skeleton" aria-hidden="true">
+        <div class="book-card-img-placeholder"></div>
+        <div class="book-card-body">
+          <div class="skel" style="height:12px;width:50%;margin-bottom:8px;"></div>
+          <div class="skel" style="height:16px;width:85%;margin-bottom:14px;"></div>
+          <div class="skel" style="height:14px;width:40%;"></div>
+        </div>
+      </div>
+      <div class="book-card book-card-skeleton" aria-hidden="true">
+        <div class="book-card-img-placeholder"></div>
+        <div class="book-card-body">
+          <div class="skel" style="height:12px;width:50%;margin-bottom:8px;"></div>
+          <div class="skel" style="height:16px;width:85%;margin-bottom:14px;"></div>
+          <div class="skel" style="height:14px;width:40%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════ -->
+<section style="background:#fff;padding:64px 0;">
+  <div class="container">
+    <div class="section-header" style="text-align:center;margin-bottom:40px;">
+      <p class="section-eyebrow">آراء عملائنا</p>
+      <h2 class="section-title">ماذا يقول قرّاء ثقف؟</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card" style="animation-delay:.0s">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">أفضل متجر كتب تقنية في مصر. الكتب أصلية والتوصيل سريع جداً، استلمت طلبي في يومين فقط.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">أ</div>
+          <div>
+            <div class="testimonial-name">أحمد محمد</div>
+            <div class="testimonial-role">مطوّر برمجيات</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card" style="animation-delay:.1s">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">اشتريت 3 كتب في إدارة الوقت وغيّرت حياتي فعلاً. الأسعار معقولة والاختيارات ممتازة.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">س</div>
+          <div>
+            <div class="testimonial-name">سارة عبدالله</div>
+            <div class="testimonial-role">مديرة مشاريع</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card" style="animation-delay:.2s">
+        <div class="testimonial-stars">★★★★☆</div>
+        <p class="testimonial-text">تجربة تسوق سهلة جداً، الموقع واضح والبحث عن الكتب سريع. هطلب تاني قريب.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">م</div>
+          <div>
+            <div class="testimonial-name">محمد خالد</div>
+            <div class="testimonial-role">طالب هندسة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     NEWSLETTER
+══════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="newsletter-section">
+      <p class="section-eyebrow">ابقَ على اطلاع</p>
+      <h2>اشترك في نشرة ثقف</h2>
+      <p>أول بأول بأحدث الكتب والعروض الحصرية لأعضاء ثقف</p>
+      <div class="newsletter-form">
+        <input type="email" id="newsletterEmail" placeholder="بريدك الإلكتروني">
+        <button class="btn btn-primary" id="newsletterBtn">اشترك الآن</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">ث</div>
+          <span class="footer-logo-name">ثقف</span>
+        </div>
+        <p class="footer-desc">متجرك المتخصص في أفضل كتب البرمجة وإدارة الوقت وتطوير الذات. نختار لك فقط ما يستحق وقتك.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>المتجر</h4>
+        <div class="footer-links">
+          <a href="/pages/shop/products.html">جميع الكتب</a>
+          <a href="/pages/shop/products.html?cat=programming">برمجة</a>
+          <a href="/pages/shop/products.html?cat=productivity">إدارة الوقت</a>
+          <a href="/pages/shop/products.html?sort=newest">أحدث الإصدارات</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>حسابي</h4>
+        <div class="footer-links">
+          <a href="/pages/auth/login.html">تسجيل الدخول</a>
+          <a href="/pages/auth/register.html">حساب جديد</a>
+          <a href="/pages/orders/my-orders.html">طلباتي</a>
+          <a href="/pages/profile/profile.html">البروفايل</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>مساعدة</h4>
+        <div class="footer-links">
+          <a href="#">الشحن والتوصيل</a>
+          <a href="#">سياسة الإرجاع</a>
+          <a href="#">تواصل معنا</a>
+          <a href="#">الأسئلة الشائعة</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ثقف. جميع الحقوق محفوظة.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container"></div>
+
+<script src="../../assets/js/utils.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="home.js"></script>
+</body>
+</html>

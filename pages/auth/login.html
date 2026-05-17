@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول — ثقف</title>
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- ── Left: Brand Panel ── -->
+  <aside class="auth-brand">
+    <div class="brand-decoration">ث</div>
+
+    <div class="brand-logo">
+      <div class="brand-logo-icon">ث</div>
+      <span class="brand-logo-name">ثقف</span>
+    </div>
+
+    <div class="brand-content">
+      <h2>مرحبًا بك في عالم المعرفة</h2>
+      <p>اكتشف أفضل الكتب في البرمجة وإدارة الوقت، وطوّر نفسك يومًا بعد يوم.</p>
+    </div>
+
+    <div class="brand-features">
+      <div class="brand-feature">
+        <div class="brand-feature-icon"><i class="fa-solid fa-book-open"></i></div>
+        <span>مئات الكتب التقنية والتطويرية</span>
+      </div>
+      <div class="brand-feature">
+        <div class="brand-feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <span>شحن سريع لجميع المحافظات</span>
+      </div>
+      <div class="brand-feature">
+        <div class="brand-feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <span>دفع آمن ومضمون 100%</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Right: Form Panel ── -->
+  <main class="auth-form-panel">
+    <div class="auth-form-wrap">
+
+      <div class="auth-header">
+        <h1>تسجيل الدخول</h1>
+        <p>أدخل بياناتك للوصول إلى حسابك</p>
+      </div>
+
+      <form class="auth-form" id="loginForm" novalidate>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label" for="email">البريد الإلكتروني</label>
+          <div class="input-icon-wrap">
+            <i class="fa-regular fa-envelope input-icon"></i>
+            <input
+              type="email"
+              id="email"
+              class="form-input"
+              placeholder="example@email.com"
+              autocomplete="email"
+              dir="ltr"
+            >
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label" for="password">كلمة المرور</label>
+          <div class="input-icon-wrap">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input
+              type="password"
+              id="password"
+              class="form-input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              dir="ltr"
+            >
+            <button type="button" class="input-eye" id="togglePassword" aria-label="إظهار/إخفاء كلمة المرور">
+              <i class="fa-regular fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember & Forgot -->
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-top:-6px;">
+          <label style="display:flex;align-items:center;gap:7px;font-size:.83rem;color:var(--text-muted);cursor:pointer;">
+            <input type="checkbox" id="rememberMe" style="accent-color:var(--brand-500);cursor:pointer;">
+            تذكّرني
+          </label>
+          <span class="auth-forgot">نسيت كلمة المرور؟</span>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary btn-full auth-submit" id="submitBtn">
+          تسجيل الدخول
+        </button>
+
+      </form>
+
+      <div class="auth-footer">
+        ليس لديك حساب؟
+        <a href="register.html">إنشاء حساب جديد</a>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<script src="../../assets/js/utils.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/api.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
