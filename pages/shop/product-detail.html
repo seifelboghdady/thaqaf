@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تفاصيل الكتاب — ثقف</title>
+  <link rel="stylesheet" href="product-detail.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav class="navbar" id="mainNavbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="/pages/homepage/index.html" class="nav-logo">
+        <div class="nav-logo-icon">ث</div>
+        <span class="nav-logo-name">ثقف</span>
+      </a>
+      <div class="nav-links">
+        <a href="/pages/homepage/index.html"       class="nav-link" data-page="home">الرئيسية</a>
+        <a href="/pages/shop/products.html"    class="nav-link" data-page="shop">المتجر</a>
+        <a href="/pages/orders/my-orders.html" class="nav-link" data-page="orders">طلباتي</a>
+      </div>
+      <div class="nav-search">
+        <i class="fa-solid fa-magnifying-glass nav-search-icon"></i>
+        <input type="text" placeholder="ابحث عن كتاب..." id="navSearchInput">
+      </div>
+      <div class="nav-actions">
+        <a href="/pages/cart/cart.html" class="nav-icon-btn">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="nav-badge" id="cartBadge" style="display:none">0</span>
+        </a>
+        <div class="nav-auth" id="navGuest">
+          <a href="/pages/auth/login.html"    class="btn btn-outline btn-sm">دخول</a>
+          <a href="/pages/auth/register.html" class="btn btn-primary btn-sm">حساب جديد</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+          <button class="nav-avatar" id="navAvatar"><span id="avatarText">م</span></button>
+          <div class="nav-dropdown" id="navDropdown">
+            <div style="padding:10px 12px 8px;border-bottom:1px solid var(--border);margin-bottom:4px;">
+              <div style="font-size:.85rem;font-weight:600;color:var(--text-main)" id="dropUserName"></div>
+              <div style="font-size:.75rem;color:var(--text-hint)" id="dropUserEmail"></div>
+            </div>
+            <a href="/pages/profile/profile.html"  class="nav-dropdown-item"><i class="fa-regular fa-user"></i> حسابي</a>
+            <a href="/pages/orders/my-orders.html" class="nav-dropdown-item"><i class="fa-regular fa-bag-shopping"></i> طلباتي</a>
+            <a href="/thaqaf/admin/index.html" class="nav-dropdown-item hidden" id="adminLink"><i class="fa-solid fa-gauge"></i> لوحة الإدارة</a>
+            <div class="nav-dropdown-divider"></div>
+            <button class="nav-dropdown-item danger" data-action="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> خروج</button>
+          </div>
+        </div>
+        <button class="nav-mobile-toggle" id="mobileToggle"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/pages/homepage/index.html"       class="nav-mobile-link" data-page="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+    <a href="/pages/shop/products.html"    class="nav-mobile-link" data-page="shop"><i class="fa-solid fa-store"></i> المتجر</a>
+    <a href="/pages/orders/my-orders.html" class="nav-mobile-link" data-page="orders"><i class="fa-solid fa-box"></i> طلباتي</a>
+    <a href="/pages/profile/profile.html"  class="nav-mobile-link" data-page="profile"><i class="fa-solid fa-user"></i> حسابي</a>
+  </div>
+</nav>
+
+<!-- ══════════════ BREADCRUMB ══════════════ -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="/pages/homepage/index.html">الرئيسية</a>
+      <i class="fa-solid fa-chevron-left"></i>
+      <a href="/pages/shop/products.html">المتجر</a>
+      <i class="fa-solid fa-chevron-left"></i>
+      <span id="breadcrumbTitle">...</span>
+    </nav>
+  </div>
+</div>
+
+<!-- ══════════════ LOADING STATE ══════════════ -->
+<div id="pageLoading" class="page-loading">
+  <div class="spinner" style="border-color:var(--brand-200);border-top-color:var(--brand-500);width:36px;height:36px;border-width:3px;border-style:solid;border-radius:50%;animation:spin .7s linear infinite;"></div>
+  <span>جارٍ تحميل الكتاب...</span>
+</div>
+
+<!-- ══════════════ MAIN CONTENT ══════════════ -->
+<div id="mainContent" class="hidden">
+
+  <!-- Product Section -->
+  <section class="product-section">
+    <div class="container">
+      <div class="product-grid">
+
+        <!-- ── Cover Column ── -->
+        <div class="product-cover-col">
+          <div class="product-cover" id="productCover">
+            <i class="fa-solid fa-book-open"></i>
+            <span id="coverTitle"></span>
+          </div>
+
+          <div class="product-cover-badges" id="coverBadges"></div>
+
+          <div class="product-quick-actions">
+            <button class="quick-action-btn" id="wishlistBtn" onclick="toggleWishlist()">
+              <i class="fa-regular fa-heart"></i> المفضلة
+            </button>
+            <button class="quick-action-btn" onclick="shareProduct()">
+              <i class="fa-solid fa-share-nodes"></i> مشاركة
+            </button>
+          </div>
+        </div>
+
+        <!-- ── Info Column ── -->
+        <div class="product-info-col">
+
+          <div class="product-cat-row">
+            <span class="product-cat" id="productCat"></span>
+          </div>
+
+          <h1 class="product-title" id="productTitle"></h1>
+          <p class="product-author">بقلم <span id="productAuthor"></span></p>
+
+          <!-- Rating -->
+          <div class="product-rating-row">
+            <span class="stars-lg" id="productStars"></span>
+            <span class="rating-score" id="productRatingScore"></span>
+            <span class="rating-count-link" onclick="switchTab('reviews')" id="productReviewCount"></span>
+            <span class="sold-count" id="productSoldCount"></span>
+          </div>
+
+          <!-- Price -->
+          <div class="product-price-row">
+            <div class="product-price" id="productPrice"></div>
+            <div class="product-price-old" id="productOldPrice"></div>
+            <div class="product-discount-pct hidden" id="productDiscount"></div>
+          </div>
+
+          <!-- Stock -->
+          <div class="stock-badge stock-in" id="stockBadge">
+            <span class="stock-dot"></span>
+            <span id="stockText">متوفر في المخزون</span>
+          </div>
+
+          <!-- Short desc -->
+          <p class="product-desc collapsed" id="productDesc"></p>
+          <button class="read-more-btn" id="readMoreBtn" onclick="toggleDesc()">
+            قراءة المزيد <i class="fa-solid fa-chevron-down"></i>
+          </button>
+
+          <!-- Specs -->
+          <div class="product-specs">
+            <div class="spec-row"><span class="spec-label">الناشر</span><span class="spec-value" id="specPublisher">—</span></div>
+            <div class="spec-row"><span class="spec-label">سنة النشر</span><span class="spec-value" id="specYear">—</span></div>
+            <div class="spec-row"><span class="spec-label">عدد الصفحات</span><span class="spec-value" id="specPages">—</span></div>
+            <div class="spec-row"><span class="spec-label">اللغة</span><span class="spec-value" id="specLang">—</span></div>
+            <div class="spec-row"><span class="spec-label">ISBN</span><span class="spec-value" id="specISBN" dir="ltr">—</span></div>
+          </div>
+
+          <!-- Qty + CTA -->
+          <div class="product-cta">
+            <div class="qty-control">
+              <button class="qty-btn" id="qtyMinus" onclick="changeQty(-1)"><i class="fa-solid fa-minus"></i></button>
+              <span class="qty-display" id="qtyDisplay">1</span>
+              <button class="qty-btn" id="qtyPlus"  onclick="changeQty(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <button class="btn btn-primary btn-add-cart" id="addCartBtn" onclick="addToCart()">
+              <i class="fa-solid fa-bag-shopping"></i> أضف للعربة
+            </button>
+            <button class="btn btn-accent btn-buy-now" onclick="buyNow()">
+              اشتري الآن
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ TABS ══════════════ -->
+  <div class="product-tabs-section">
+    <div class="container">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="description" onclick="switchTab('description')">
+          وصف الكتاب
+        </button>
+        <button class="tab-btn" data-tab="reviews" onclick="switchTab('reviews')">
+          التقييمات <span class="tab-count" id="tabReviewCount">0</span>
+        </button>
+        <button class="tab-btn" data-tab="details" onclick="switchTab('details')">
+          تفاصيل إضافية
+        </button>
+      </div>
+
+      <!-- Description tab -->
+      <div class="tab-pane active" id="tab-description">
+        <div style="max-width:720px">
+          <p id="fullDesc" style="font-size:.95rem;color:var(--text-body);line-height:1.85;"></p>
+        </div>
+      </div>
+
+      <!-- Reviews tab -->
+      <div class="tab-pane" id="tab-reviews">
+
+        <!-- Summary -->
+        <div class="reviews-summary">
+          <div class="reviews-score-big">
+            <div class="num" id="revScoreBig">0</div>
+            <span class="stars-lg" id="revStarsBig"></span>
+            <div class="out-of">من أصل 5</div>
+          </div>
+          <div class="rating-bars" id="ratingBars"></div>
+        </div>
+
+        <!-- Write review -->
+        <div class="write-review-box" id="writeReviewBox">
+          <h4><i class="fa-solid fa-pen" style="color:var(--brand-400);margin-left:6px"></i> أضف تقييمك</h4>
+          <div class="star-picker" id="starPicker">
+            <span class="star-pick" data-v="1">★</span>
+            <span class="star-pick" data-v="2">★</span>
+            <span class="star-pick" data-v="3">★</span>
+            <span class="star-pick" data-v="4">★</span>
+            <span class="star-pick" data-v="5">★</span>
+          </div>
+          <textarea class="form-input" id="reviewText" rows="3" placeholder="شاركنا رأيك في هذا الكتاب..."></textarea>
+          <button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="submitReview()">
+            نشر التقييم
+          </button>
+        </div>
+
+        <!-- Reviews list -->
+        <div id="reviewsList"></div>
+        <div class="hidden" id="noReviews" style="padding:32px 0;text-align:center;color:var(--text-muted)">
+          <i class="fa-regular fa-comment-dots" style="font-size:2rem;color:var(--brand-200);margin-bottom:12px;display:block"></i>
+          كن أول من يقيّم هذا الكتاب!
+        </div>
+      </div>
+
+      <!-- Details tab -->
+      <div class="tab-pane" id="tab-details">
+        <div style="max-width:600px">
+          <div class="product-specs" id="detailsSpecs"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════ RELATED BOOKS ══════════════ -->
+  <section class="related-section">
+    <div class="container">
+      <div class="section-header-row" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;">
+        <div>
+          <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--brand-500);margin-bottom:6px">قد يعجبك أيضاً</p>
+          <h2 style="font-size:1.5rem;">كتب مشابهة</h2>
+        </div>
+        <a href="products.html" class="btn btn-outline btn-sm">عرض الكل <i class="fa-solid fa-arrow-left"></i></a>
+      </div>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+  </section>
+
+</div><!-- /mainContent -->
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">ث</div>
+          <span class="footer-logo-name">ثقف</span>
+        </div>
+        <p class="footer-desc">متجرك المتخصص في أفضل كتب البرمجة وإدارة الوقت وتطوير الذات.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>المتجر</h4><div class="footer-links">
+        <a href="products.html">جميع الكتب</a>
+        <a href="products.html?cat=programming">برمجة</a>
+        <a href="products.html?cat=productivity">إدارة الوقت</a>
+      </div></div>
+      <div class="footer-col"><h4>حسابي</h4><div class="footer-links">
+        <a href="/pages/auth/login.html">تسجيل الدخول</a>
+        <a href="/pages/orders/my-orders.html">طلباتي</a>
+      </div></div>
+      <div class="footer-col"><h4>مساعدة</h4><div class="footer-links">
+        <a href="#">الشحن والتوصيل</a>
+        <a href="#">تواصل معنا</a>
+      </div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 ثقف. جميع الحقوق محفوظة.</span></div>
+  </div>
+</footer>
+
+<div id="toast-container"></div>
+
+<script src="../../assets/js/utils.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="product-detail.js"></script>
+</body>
+</html>

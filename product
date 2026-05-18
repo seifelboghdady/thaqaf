@@ -1,0 +1,64 @@
+INSERT INTO Products 
+(name, author, price, oldPrice, category, rating, reviews, stock, description, publisher, year, pages, language, isbn, createdAt, updatedAt)
+
+VALUES
+
+('Clean Code','Robert C. Martin',280,350,'programming',4.8,124,50,'كتاب عن كتابة كود نظيف وقابل للصيانة','Prentice Hall',2008,431,'English','9780132350884',datetime('now'),datetime('now')),
+
+('The Pragmatic Programmer','Andrew Hunt',320,NULL,'programming',4.9,98,40,'دليل عملي للمبرمجين المحترفين','Addison-Wesley',2019,352,'English','9780135957059',datetime('now'),datetime('now')),
+
+('Deep Work','Cal Newport',220,260,'productivity',4.7,203,45,'عن التركيز والعمل العميق','Grand Central',2016,296,'English','9781455586691',datetime('now'),datetime('now')),
+
+('Atomic Habits','James Clear',240,300,'selfdev',4.9,512,60,'بناء العادات الصغيرة المؤثرة','Avery',2018,320,'English','9780735211292',datetime('now'),datetime('now')),
+
+('Python Crash Course','Eric Matthes',295,360,'programming',4.8,320,25,'تعلم Python من الصفر','No Starch Press',2023,552,'English','9781718502703',datetime('now'),datetime('now')),
+
+('Design Patterns','Gang of Four',340,420,'programming',4.6,87,20,'أنماط التصميم البرمجية','Addison-Wesley',1994,395,'English','9780201633610',datetime('now'),datetime('now')),
+
+('Refactoring','Martin Fowler',310,NULL,'programming',4.7,188,28,'تحسين هيكلية الكود','Addison-Wesley',2018,448,'English','9780134757599',datetime('now'),datetime('now')),
+
+('The Phoenix Project','Gene Kim',265,NULL,'business',4.6,144,34,'رواية عن DevOps وإدارة الأنظمة','IT Revolution',2013,432,'English','9780988262591',datetime('now'),datetime('now')),
+
+('Getting Things Done','David Allen',190,NULL,'productivity',4.4,156,52,'تنظيم المهام والإنتاجية','Penguin',2015,352,'English','9780143126560',datetime('now'),datetime('now')),
+
+('Zero to One','Peter Thiel',230,NULL,'business',4.5,341,38,'بناء الشركات الناشئة','Crown Business',2014,224,'English','9780804139298',datetime('now'),datetime('now')),
+
+('The Psychology of Money','Morgan Housel',210,250,'selfdev',4.8,420,42,'فهم السلوك المالي','Harriman House',2020,256,'English','9780857197689',datetime('now'),datetime('now')),
+
+('Think and Grow Rich','Napoleon Hill',180,220,'selfdev',4.6,510,65,'تطوير العقلية المالية','The Ralston Society',1937,320,'English','9781585424337',datetime('now'),datetime('now')),
+
+('Rich Dad Poor Dad','Robert Kiyosaki',200,240,'business',4.7,720,70,'الذكاء المالي والاستثمار','Warner Books',1997,336,'English','9781612680194',datetime('now'),datetime('now')),
+
+('The Lean Startup','Eric Ries',260,310,'business',4.5,284,37,'منهجية الشركات الناشئة','Crown Business',2011,336,'English','9780307887894',datetime('now'),datetime('now')),
+
+('Cracking the Coding Interview','Gayle McDowell',360,430,'programming',4.9,640,22,'التحضير لمقابلات البرمجة','CareerCup',2022,706,'English','9780984782857',datetime('now'),datetime('now')),
+
+('Eloquent JavaScript','Marijn Haverbeke',250,NULL,'programming',4.6,230,29,'تعلم JavaScript الحديثة','No Starch Press',2018,472,'English','9781593279509',datetime('now'),datetime('now')),
+
+('You Don’t Know JS','Kyle Simpson',270,NULL,'programming',4.7,300,33,'فهم JavaScript بعمق','O Reilly',2020,278,'English','9781091210094',datetime('now'),datetime('now')),
+
+('JavaScript The Good Parts','Douglas Crockford',210,NULL,'programming',4.5,170,24,'أفضل ممارسات JavaScript','O Reilly',2008,176,'English','9780596517748',datetime('now'),datetime('now')),
+
+('Head First Design Patterns','Eric Freeman',330,390,'programming',4.8,270,19,'شرح مبسط لأنماط التصميم','O Reilly',2020,694,'English','9781492078005',datetime('now'),datetime('now')),
+
+('Soft Skills','John Sonmez',240,NULL,'selfdev',4.6,198,36,'تطوير المهارات الشخصية للمبرمج','Manning',2014,504,'English','9781617292392',datetime('now'),datetime('now')),
+
+('Algorithms to Live By','Brian Christian',280,NULL,'data',4.5,143,21,'الخوارزميات في الحياة اليومية','Henry Holt',2016,368,'English','9781627790369',datetime('now'),datetime('now')),
+
+('Grokking Algorithms','Aditya Bhargava',300,360,'programming',4.8,310,18,'شرح مبسط للخوارزميات','Manning',2016,256,'English','9781617292231',datetime('now'),datetime('now')),
+
+('Introduction to Algorithms','Thomas H. Cormen',450,520,'programming',4.9,410,12,'مرجع شامل للخوارزميات','MIT Press',2022,1312,'English','9780262046305',datetime('now'),datetime('now')),
+
+('Deep Learning','Ian Goodfellow',520,NULL,'data',4.8,290,10,'مرجع تعلم عميق','MIT Press',2016,800,'English','9780262035613',datetime('now'),datetime('now')),
+
+('Hands-On Machine Learning','Aurelien Geron',490,560,'data',4.9,340,14,'تطبيقات عملية للذكاء الاصطناعي','O Reilly',2022,856,'English','9781098125974',datetime('now'),datetime('now')),
+
+('The Clean Coder','Robert C. Martin',260,310,'programming',4.7,166,26,'احتراف البرمجة والعمل الجماعي','Prentice Hall',2011,256,'English','9780137081073',datetime('now'),datetime('now')),
+
+('Code Complete','Steve McConnell',420,NULL,'programming',4.9,520,15,'دليل شامل لبناء البرمجيات','Microsoft Press',2004,960,'English','9780735619678',datetime('now'),datetime('now')),
+
+('Sprint','Jake Knapp',230,NULL,'business',4.5,175,32,'حل المشكلات في 5 أيام','Simon & Schuster',2016,288,'English','9781501121746',datetime('now'),datetime('now')),
+
+('The 4 Hour Workweek','Tim Ferriss',210,250,'productivity',4.4,390,48,'العمل الذكي والإنتاجية','Crown',2009,448,'English','9780307465351',datetime('now'),datetime('now')),
+
+('Essentialism','Greg McKeown',220,NULL,'productivity',4.7,205,39,'التركيز على الأهم','Crown Business',2014,272,'English','9780804137386',datetime('now'),datetime('now'));

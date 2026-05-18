@@ -64,21 +64,22 @@ const authAPI = {
 };
 // Products
 const productsAPI = {
-  getAll:   ()     => api.get('/allProduct'),
-  getById:  (id)   => api.get(`/GetProductByid/${id}`),
-  add:      (data) => api.post('/addProduct', data),
-  update:   (id, data) => api.put(`/update product/${id}`, data),
-  delete:   (id)   => api.delete(`/delete product/${id}`),
+  getAll: (page = 1, limit = 10) =>
+  api.get(`/products?page=${page}&limit=${limit}`),
+  getById:  (id)   => api.get(`/products/${id}`),
+  add:      (data) => api.post('/products', data),
+  update:   (id, data) => api.put(`/products/${id}`, data),
+  delete:   (id)   => api.delete(`/products/${id}`),
 };
 
 // Cart
 const cartAPI = {
-  add:  (data) => api.post('/add to cart', data),
-  view: ()     => api.get('/veiwCart'),
+  add:  (data) => api.post('/cart', data),
+  view: ()     => api.get('/cart'),
 };
 
 // Orders
 const ordersAPI = {
-  create:   (data) => api.post('/CreateOrder', data),
-  getUserOrders: () => api.get('/GetUserOrder'),
+  create:   (data) => api.post('/orders', data),
+  getUserOrders: () => api.get('/orders'),
 };

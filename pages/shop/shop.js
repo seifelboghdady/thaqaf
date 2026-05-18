@@ -36,7 +36,8 @@ const coverColors = {
 };
 function getCoverColor(category, id = '') {
   const arr = coverColors[category] || ['linear-gradient(135deg,#1a1845,#4540a0)'];
-  const idx = (id.charCodeAt(id.length - 1) || 0) % arr.length;
+  const safeId = String(id);
+  const idx = (safeId.charCodeAt(safeId.length - 1) || 0) % arr.length;
   return arr[idx];
 }
 
@@ -70,8 +71,8 @@ function getMockProducts() {
 async function loadProducts() {
   renderSkeletons();
   try {
-    const data = await productsAPI.getAll();
-    state.all = data.products || data || [];
+    const data = await productsAPI.getAll(currentPage, 10);
+    state.all = data.data || data.products || data || [];
   } catch {
     state.all = getMockProducts();
   }
@@ -170,16 +171,16 @@ function renderGridCard(b, i) {
     : (b.isNew ? `<span class="book-new-badge">جديد</span>` : '');
 
   return `
-  <div class="book-card" style="animation-delay:${i*0.04}s" onclick="goToDetail('${b._id}')">
-    <div class="book-cover" style="background:${getCoverColor(b.category, b._id)}">
+  <div class="book-card" style="animation-delay:${i*0.04}s" onclick="goToDetail('${b.id}')">
+    <div class="book-cover" style="background:${getCoverColor(b.category, b.id)}">
       <i class="fa-solid fa-book-open"></i>
       ${b.title}
       ${badgeHtml}
       <div class="book-cover-overlay">
-        <button class="book-cover-action" onclick="event.stopPropagation();goToDetail('${b._id}')" title="عرض التفاصيل">
+        <button class="book-cover-action" onclick="event.stopPropagation();goToDetail('${b.id}')" title="عرض التفاصيل">
           <i class="fa-solid fa-eye"></i>
         </button>
-        <button class="book-cover-action" onclick="event.stopPropagation();addToCart('${b._id}',this)" title="أضف للعربة">
+        <button class="book-cover-action" onclick="event.stopPropagation();addToCart('${b.id}',this)" title="أضف للعربة">
           <i class="fa-solid fa-bag-shopping"></i>
         </button>
       </div>
@@ -197,7 +198,7 @@ function renderGridCard(b, i) {
           <div class="book-price">${formatPrice(b.price,'EGP')}</div>
           ${b.oldPrice ? `<div class="book-price-old">${formatPrice(b.oldPrice,'EGP')}</div>` : ''}
         </div>
-        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart('${b._id}',this)" title="أضف للعربة">
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart('${b.id}',this)" title="أضف للعربة">
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -209,8 +210,8 @@ function renderListCard(b, i) {
   const stars    = '★'.repeat(Math.round(b.rating||4)) + '☆'.repeat(5-Math.round(b.rating||4));
   const discount = b.oldPrice ? Math.round((1 - b.price/b.oldPrice)*100) : 0;
   return `
-  <div class="book-list-card" style="animation-delay:${i*0.04}s" onclick="goToDetail('${b._id}')">
-    <div class="book-list-cover" style="background:${getCoverColor(b.category,b._id)}">
+  <div class="book-list-card" style="animation-delay:${i*0.04}s" onclick="goToDetail('${b.id}')">
+    <div class="book-list-cover" style="background:${getCoverColor(b.category,b.id)}">
       <i class="fa-solid fa-book-open" style="font-size:1.3rem;opacity:.7;margin-bottom:4px;display:block"></i>
       ${b.title}
     </div>
@@ -230,7 +231,7 @@ function renderListCard(b, i) {
         <div class="list-price">${formatPrice(b.price,'EGP')}</div>
         ${b.oldPrice ? `<div class="list-price-old">${formatPrice(b.oldPrice,'EGP')}</div>` : ''}
       </div>
-      <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();addToCart('${b._id}',this)">
+      <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();addToCart('${b.id}',this)">
         <i class="fa-solid fa-plus"></i> أضف للعربة
       </button>
     </div>
@@ -477,7 +478,7 @@ function goToDetail(id) {
 async function addToCart(productId, btn) {
   if (!authIsLoggedIn()) {
     showToast('سجّل دخولك أولاً لإضافة منتجات للعربة', 'info');
-    setTimeout(() => window.location.href = '/thaqaf/pages/auth/login.html', 1200);
+    setTimeout(() => window.location.href = '/pages/auth/login.html', 1200);
     return;
   }
 

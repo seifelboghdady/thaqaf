@@ -12,7 +12,7 @@ let allProducts = [];
 
 async function loadProducts() {
   try {
-    const data = await productsAPI.getAll();
+    const data = await productsAPI.getAll(currentPage, 10);
     allProducts = data.products || data || [];
     renderFeatured(allProducts.slice(0, 8));
     renderNew(allProducts.slice(-3));

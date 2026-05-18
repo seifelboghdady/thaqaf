@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>العربة | ثقف</title>
+
+  <link rel="stylesheet" href="cart.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="container">
+      <div class="navbar-inner">
+
+        <a href="/pages/homepage/index.html" class="nav-logo">
+          <div class="nav-logo-icon">ث</div>
+          <span class="nav-logo-name">ثقف</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="/pages/homepage/index.html" class="nav-link">الرئيسية</a>
+          <a href="/pages/shop/products.html" class="nav-link">المتجر</a>
+          <a href="/pages/cart/cart.html" class="nav-link active">العربة</a>
+        </div>
+
+        <div class="nav-actions">
+          <a href="/pages/cart/cart.html" class="nav-icon-btn active">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="nav-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="cart-hero">
+    <div class="container">
+      <div class="cart-hero-content">
+        <div>
+          <p class="cart-eyebrow">سلة مشترياتك</p>
+          <h1>العربة</h1>
+          <p>راجع الكتب التي اخترتها قبل إتمام عملية الشراء.</p>
+        </div>
+
+        <div class="cart-hero-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CART CONTENT -->
+  <section class="cart-section">
+    <div class="container">
+
+      <div class="cart-layout">
+
+        <!-- ITEMS -->
+        <div>
+
+          <div class="cart-topbar">
+            <h2>المنتجات داخل العربة</h2>
+            <button id="clearCartBtn" class="clear-cart-btn">
+              <i class="fa-regular fa-trash-can"></i>
+              حذف الكل
+            </button>
+          </div>
+
+          <div id="cartItems" class="cart-items">
+            <!-- Dynamic -->
+          </div>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+        <aside class="cart-summary">
+
+          <div class="summary-card">
+
+            <div class="summary-header">
+              <h3>ملخص الطلب</h3>
+            </div>
+
+            <div class="summary-row">
+              <span>عدد المنتجات</span>
+              <strong id="summaryItems">0</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>المجموع الفرعي</span>
+              <strong id="summarySubtotal">0 EGP</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>الشحن</span>
+              <strong>مجاني</strong>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-row total">
+              <span>الإجمالي</span>
+              <strong id="summaryTotal">0 EGP</strong>
+            </div>
+
+            <button class="checkout-btn" id="checkoutBtn">
+              إتمام الطلب
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="secure-box">
+              <i class="fa-solid fa-shield-halved"></i>
+              دفع آمن وبياناتك محمية بالكامل
+            </div>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+
+      <!-- EMPTY -->
+      <div class="empty-cart hidden" id="emptyCart">
+        <div class="empty-cart-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+
+        <h2>العربة فارغة</h2>
+        <p>لم تقم بإضافة أي كتب بعد. ابدأ رحلتك المعرفية الآن ✨</p>
+
+        <a href="/pages/shop/products.html" class="shop-btn">
+          تصفح الكتب
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="padding-top:40px;">
+        <span>© 2025 ثقف. جميع الحقوق محفوظة.</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <div id="toast-container"></div>
+
+  <script src="../../assets/js/utils.js"></script>
+  <script src="../../assets/js/auth.js"></script>
+  <script src="../../assets/js/api.js"></script>
+  <script src="../../assets/js/navbar.js"></script>
+  <script src="cart.js"></script>
+
+</body>
+</html>
