@@ -71,7 +71,7 @@ function getMockProducts() {
 async function loadProducts() {
   renderSkeletons();
   try {
-    const data = await productsAPI.getAll(currentPage, 10);
+    const data = await productsAPI.getAll(state.page, state.perPage);
     state.all = data.data || data.products || data || [];
   } catch {
     state.all = getMockProducts();
@@ -141,8 +141,7 @@ const catMap = { programming:'برمجة', productivity:'إدارة الوقت',
 
 function renderPage() {
   const container = document.getElementById('productsContainer');
-  const start = (state.page - 1) * state.perPage;
-  const items = state.filtered.slice(start, start + state.perPage);
+  const items = state.filtered;
 
   if (!items.length) {
     container.innerHTML = `
@@ -282,8 +281,7 @@ function goPage(p) {
   const total = Math.ceil(state.filtered.length / state.perPage);
   if (p < 1 || p > total) return;
   state.page = p;
-  renderPage();
-  renderPagination();
+  loadProducts();
   window.scrollTo({ top: 200, behavior: 'smooth' });
 }
 

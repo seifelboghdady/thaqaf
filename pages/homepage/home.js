@@ -12,7 +12,7 @@ let allProducts = [];
 
 async function loadProducts() {
   try {
-    const data = await productsAPI.getAll(currentPage, 10);
+    const data = await productsAPI.getAll(state.page, state.perPage);
     allProducts = data.products || data || [];
     renderFeatured(allProducts.slice(0, 8));
     renderNew(allProducts.slice(-3));
@@ -52,13 +52,13 @@ function renderBookCard(book, delay = 0) {
   const catMap = { programming:'برمجة', productivity:'إدارة الوقت', selfdev:'تطوير الذات', design:'تصميم', business:'أعمال', data:'بيانات' };
 
   return `
-    <div class="book-card" style="animation-delay:${delay}s" onclick="goToProduct('${book._id}')">
+    <div class="book-card" style="animation-delay:${delay}s" onclick="goToProduct('${book.id}')">
       <div class="book-card-img-placeholder">
         <i class="fa-solid fa-book-open"></i>
         ${book.title}
       </div>
       ${discountBadge}
-      <button class="book-card-wishlist" onclick="event.stopPropagation();toggleWishlist('${book._id}',this)" title="أضف للمفضلة">
+      <button class="book-card-wishlist" onclick="event.stopPropagation();toggleWishlist('${book.id}',this)" title="أضف للمفضلة">
         <i class="fa-regular fa-heart"></i>
       </button>
       <div class="book-card-body">
@@ -74,7 +74,7 @@ function renderBookCard(book, delay = 0) {
             <div class="book-price">${formatPrice(book.price, 'EGP')}</div>
             ${oldPriceHtml}
           </div>
-          <button class="book-add-btn" onclick="event.stopPropagation();addToCart('${book._id}',this)" title="أضف للعربة">
+          <button class="book-add-btn" onclick="event.stopPropagation();addToCart('${book.id}',this)" title="أضف للعربة">
             <i class="fa-solid fa-plus"></i>
           </button>
         </div>

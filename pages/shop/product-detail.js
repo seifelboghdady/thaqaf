@@ -77,7 +77,7 @@ async function loadProduct() {
     const data = await productsAPI.getById(id);
     product = data.data || data;
   } catch {
-    product = mockProducts.find(p => p.id === id) || mockProducts[0];
+    product = mockProducts.find(p => p._id === id) || mockProducts[0];
   }
 
   document.getElementById('pageLoading').classList.add('hidden');
@@ -234,7 +234,7 @@ function renderReviews(reviews) {
       <p class="review-text">${r.text}</p>
       <div class="review-helpful">
         مفيد؟
-        <button class="helpful-btn" onclick="markHelpful(this, '${r._id}')">
+        <button class="helpful-btn" onclick="markHelpful(this, '${r.id}')">
           <i class="fa-regular fa-thumbs-up"></i> نعم (${r.helpful || 0})
         </button>
       </div>
