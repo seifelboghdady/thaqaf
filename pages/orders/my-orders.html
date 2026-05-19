@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلباتي — ثقف</title>
+  <link rel="stylesheet" href="orders.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav class="navbar" id="mainNavbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="/pages/home/index.html" class="nav-logo">
+        <div class="nav-logo-icon">ث</div>
+        <span class="nav-logo-name">ثقف</span>
+      </a>
+      <div class="nav-links">
+        <a href="/pages/home/index.html"       class="nav-link" data-page="home">الرئيسية</a>
+        <a href="/pages/shop/products.html"    class="nav-link" data-page="shop">المتجر</a>
+        <a href="/pages/orders/my-orders.html" class="nav-link" data-page="orders">طلباتي</a>
+      </div>
+      <div class="nav-search">
+        <i class="fa-solid fa-magnifying-glass nav-search-icon"></i>
+        <input type="text" placeholder="ابحث عن كتاب..." id="navSearchInput">
+      </div>
+      <div class="nav-actions">
+        <a href="/pages/cart/cart.html" class="nav-icon-btn">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="nav-badge" id="cartBadge" style="display:none">0</span>
+        </a>
+        <div class="nav-auth" id="navGuest">
+          <a href="/pages/auth/login.html"    class="btn btn-outline btn-sm">دخول</a>
+          <a href="/pages/auth/register.html" class="btn btn-primary btn-sm">حساب جديد</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+          <button class="nav-avatar" id="navAvatar"><span id="avatarText">م</span></button>
+          <div class="nav-dropdown" id="navDropdown">
+            <div style="padding:10px 12px 8px;border-bottom:1px solid var(--border);margin-bottom:4px;">
+              <div style="font-size:.85rem;font-weight:600;color:var(--text-main)" id="dropUserName"></div>
+              <div style="font-size:.75rem;color:var(--text-hint)" id="dropUserEmail"></div>
+            </div>
+            <a href="/pages/profile/profile.html"  class="nav-dropdown-item"><i class="fa-regular fa-user"></i> حسابي</a>
+            <a href="/pages/orders/my-orders.html" class="nav-dropdown-item"><i class="fa-regular fa-bag-shopping"></i> طلباتي</a>
+            <a href="/thaqaf/admin/index.html" class="nav-dropdown-item hidden" id="adminLink"><i class="fa-solid fa-gauge"></i> لوحة الإدارة</a>
+            <div class="nav-dropdown-divider"></div>
+            <button class="nav-dropdown-item danger" data-action="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> خروج</button>
+          </div>
+        </div>
+        <button class="nav-mobile-toggle" id="mobileToggle"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/pages/home/index.html"       class="nav-mobile-link" data-page="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+    <a href="/pages/shop/products.html"    class="nav-mobile-link" data-page="shop"><i class="fa-solid fa-store"></i> المتجر</a>
+    <a href="/pages/orders/my-orders.html" class="nav-mobile-link" data-page="orders"><i class="fa-solid fa-box"></i> طلباتي</a>
+    <a href="/pages/profile/profile.html"  class="nav-mobile-link" data-page="profile"><i class="fa-solid fa-user"></i> حسابي</a>
+  </div>
+</nav>
+
+<!-- ══════════════ PAGE HEADER ══════════════ -->
+<div class="orders-header">
+  <div class="container">
+    <div class="orders-header-inner">
+      <nav class="orders-breadcrumb">
+        <a href="/pages/home/index.html">الرئيسية</a>
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>طلباتي</span>
+      </nav>
+      <h1>طلباتي</h1>
+      <p id="ordersHeaderSub">تتبّع جميع طلباتك ومشترياتك</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ STATS STRIP ══════════════ -->
+<div class="orders-stats">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-cell">
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-label">إجمالي الطلبات</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="statDelivered">0</div>
+        <div class="stat-label">تم التسليم</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="statActive">0</div>
+        <div class="stat-label">قيد التنفيذ</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="statSpent">0</div>
+        <div class="stat-label">إجمالي الإنفاق</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ORDERS PAGE ══════════════ -->
+<div class="orders-page">
+  <div class="container">
+
+    <!-- Toolbar -->
+    <div class="orders-toolbar">
+      <div class="status-tabs" id="statusTabs">
+        <button class="status-tab active" data-status="all">
+          الكل <span class="tab-count-badge" id="tabAll">0</span>
+        </button>
+        <button class="status-tab" data-status="pending">
+          قيد الانتظار <span class="tab-count-badge" id="tabPending">0</span>
+        </button>
+        <button class="status-tab" data-status="confirmed">
+          مؤكد <span class="tab-count-badge" id="tabConfirmed">0</span>
+        </button>
+        <button class="status-tab" data-status="preparing">
+          جارٍ التجهيز <span class="tab-count-badge" id="tabPreparing">0</span>
+        </button>
+        <button class="status-tab" data-status="shipped">
+          في الشحن <span class="tab-count-badge" id="tabShipped">0</span>
+        </button>
+        <button class="status-tab" data-status="delivered">
+          تم التسليم <span class="tab-count-badge" id="tabDelivered">0</span>
+        </button>
+        <button class="status-tab" data-status="cancelled">
+          ملغى <span class="tab-count-badge" id="tabCancelled">0</span>
+        </button>
+      </div>
+
+      <div class="toolbar-right">
+        <div class="search-orders">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="orderSearch" placeholder="بحث برقم الطلب...">
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders list -->
+    <div class="orders-list" id="ordersList"></div>
+
+    <!-- Empty state -->
+    <div class="empty-orders hidden" id="emptyOrders">
+      <div class="empty-orders-icon"><i class="fa-solid fa-box-open"></i></div>
+      <h2>لا توجد طلبات</h2>
+      <p id="emptyOrdersMsg">لم تقم بأي طلبات حتى الآن. ابدأ التسوق واكتشف مكتبة ثقف.</p>
+      <a href="/pages/shop/products.html" class="btn btn-primary">
+        <i class="fa-solid fa-store"></i> تصفّح المتجر
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">ث</div>
+          <span class="footer-logo-name">ثقف</span>
+        </div>
+        <p class="footer-desc">متجرك المتخصص في أفضل كتب البرمجة وإدارة الوقت وتطوير الذات.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>المتجر</h4><div class="footer-links">
+        <a href="/pages/shop/products.html">جميع الكتب</a>
+        <a href="/pages/shop/products.html?cat=programming">برمجة</a>
+      </div></div>
+      <div class="footer-col"><h4>حسابي</h4><div class="footer-links">
+        <a href="/pages/orders/my-orders.html">طلباتي</a>
+        <a href="/pages/profile/profile.html">البروفايل</a>
+      </div></div>
+      <div class="footer-col"><h4>مساعدة</h4><div class="footer-links">
+        <a href="#">سياسة الإرجاع</a>
+        <a href="#">تواصل معنا</a>
+      </div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 ثقف. جميع الحقوق محفوظة.</span></div>
+  </div>
+</footer>
+
+<div id="toast-container"></div>
+
+<script src="../../assets/js/utils.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="orders.js"></script>
+</body>
+</html>
