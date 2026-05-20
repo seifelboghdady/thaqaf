@@ -16,9 +16,21 @@ const coverPalettes = {
   business:    ['linear-gradient(145deg,#0f0f1a,#3a3a5a)'],
   data:        ['linear-gradient(145deg,#050f1a,#0f3a5a)'],
 };
+// function getCover(cat, id = '') {
+//   const arr = coverPalettes[cat] || coverPalettes.programming;
+//   return arr[(id?.charCodeAt(id.length - 1) || 0) % arr.length];
+// }
+
 function getCover(cat, id = '') {
+
   const arr = coverPalettes[cat] || coverPalettes.programming;
-  return arr[(id?.charCodeAt(id.length - 1) || 0) % arr.length];
+
+  const safeId = String(id);
+
+  return arr[
+    (safeId.charCodeAt(safeId.length - 1) || 0) % arr.length
+  ];
+
 }
 
 /* ══════════════════════════════════════════════
@@ -26,6 +38,7 @@ function getCover(cat, id = '') {
 ══════════════════════════════════════════════ */
 const STATUS = {
   pending:   { label: 'قيد الانتظار',  cls: 'status-pending',   icon: 'fa-clock' },
+  pending_payment: {label: 'بانتظار الدفع',cls: 'status-pending',icon: 'fa-clock'},
   confirmed: { label: 'مؤكد',          cls: 'status-confirmed',  icon: 'fa-circle-check' },
   preparing: { label: 'جارٍ التجهيز', cls: 'status-preparing',  icon: 'fa-box' },
   shipped:   { label: 'في الشحن',      cls: 'status-shipped',    icon: 'fa-truck' },
@@ -119,7 +132,7 @@ async function loadOrders() {
   renderSkeletons();
   try {
     const data = await ordersAPI.getUserOrders();
-    allOrders = data.orders || data || [];
+    allOrders = data.data || [];
     if (!allOrders.length) allOrders = mockOrders;
   } catch {
     allOrders = mockOrders;
@@ -135,9 +148,9 @@ async function loadOrders() {
 function updateStats() {
   const delivered = allOrders.filter(o => o.status === 'delivered').length;
   const active    = allOrders.filter(o => !['delivered','cancelled'].includes(o.status)).length;
-  const spent     = allOrders
-    .filter(o => o.status !== 'cancelled')
-    .reduce((s, o) => s + o.total, 0);
+  const spent = allOrders
+  .filter(o => o.status !== 'cancelled')
+  .reduce((s, o) => s + (o.totalPrice || o.total || 0), 0);
 
   document.getElementById('statTotal').textContent     = allOrders.length;
   document.getElementById('statDelivered').textContent = delivered;
@@ -176,8 +189,8 @@ function getFiltered() {
   if (searchQuery) {
     const q = searchQuery.toLowerCase();
     list = list.filter(o =>
-      o._id.toLowerCase().includes(q) ||
-      o.items.some(i => i.product.title.toLowerCase().includes(q))
+      String(o.id).toLowerCase().includes(q) ||
+      o.Products.some(i => i.title.toLowerCase().includes(q))
     );
   }
   return list;
@@ -207,44 +220,91 @@ function renderOrders() {
 /* ══════════════════════════════════════════════
    RENDER ORDER CARD
 ══════════════════════════════════════════════ */
+// function renderOrderCard(order, idx) {
+//   const st = STATUS[order.status] || STATUS.pending;
+  
+//   // 1. حل مشكلة المعرف (id أو _id)
+//   const orderId = order.id || order._id;
+  
+//   // 2. حل مشكلة مصفوفة المنتجات (Products أو items)
+//   const orderProducts = order.Products || order.items || [];
+  
+//   // 3. حل مشكلة السعر الإجمالي
+//   const totalPrice = order.totalPrice || order.total || 0;
+  
+//   const preview = orderProducts.slice(0, 3);
+//   const extra   = orderProducts.length - preview.length;
+//   const isOpen  = expandedOrders.has(orderId);
+
+//   // 4. تعديل الخرائط (Maps) لتقرأ المنتج سواء كان مباشر أو مغلف داخل product
+//   const thumbsHtml = preview.map(item => {
+//     const prod = item.product || item; // إذا كان هناك كائن product تقرأ منه، وإلا تقرأ من item مباشرة
+//     const itemId = prod.id || prod._id;
+//     return `
+//     <div class="order-book-thumb"
+//       style="background:${getCover(prod.category, itemId)}">
+//       <i class="fa-solid fa-book-open"></i>
+//       ${prod.title}
+//     </div>`;
+//   }).join('') + (extra > 0 ? `<div class="order-more-books">+${extra}</div>` : '');
+
+//   const namesHtml = orderProducts.map(i => (i.product?.title || i.title)).join('، ');
+// }
+
 function renderOrderCard(order, idx) {
-  const st      = STATUS[order.status] || STATUS.pending;
-  const preview = order.items.slice(0, 3);
-  const extra   = order.items.length - preview.length;
-  const isOpen  = expandedOrders.has(order._id);
+  const st = STATUS[order.status] || STATUS.pending;
+  
+  // حل مشكلة المسميات بين الـ API والـ Mock Data
+  const orderId = order.id || order._id;
+  const orderProducts = order.Products || order.items || [];
+  const totalPrice = order.totalPrice || order.total || 0;
+  
+  const preview = orderProducts.slice(0, 3);
+  const extra   = orderProducts.length - preview.length;
+  const isOpen  = expandedOrders.has(orderId);
 
-  const thumbsHtml = preview.map(item => `
+  const thumbsHtml = preview.map(item => {
+    // قراءة المنتج سواء كان مباشر (API) أو بداخل كائن product (Mock)
+    const prod = item.product || item;
+    const prodId = prod.id || prod._id;
+    return `
     <div class="order-book-thumb"
-      style="background:${getCover(item.product.category, item.product._id)}">
+      style="background:${getCover(prod.category, prodId)}">
       <i class="fa-solid fa-book-open"></i>
-      ${item.product.title}
-    </div>`).join('') +
-    (extra > 0 ? `<div class="order-more-books">+${extra}</div>` : '');
+      ${prod.title}
+    </div>`;
+  }).join('') + (extra > 0 ? `<div class="order-more-books">+${extra}</div>` : '');
 
-  const namesHtml = order.items.map(i => i.product.title).join('، ');
+  const namesHtml = orderProducts.map(i => (i.product?.title || i.title)).join('، ');
 
   const payIcon = order.paymentMethod === 'card'   ? 'fa-credit-card'
                 : order.paymentMethod === 'wallet' ? 'fa-wallet'
                 : 'fa-money-bill-wave';
 
   const expandedHtml = `
-    <div class="order-items-expanded ${isOpen ? 'open' : ''}" id="expand-${order._id}">
+    <div class="order-items-expanded ${isOpen ? 'open' : ''}" id="expand-${orderId}">
       <div class="expanded-inner">
-        ${order.items.map(item => `
+        ${orderProducts.map(item => {
+          const prod = item.product || item;
+          const prodId = prod.id || prod._id;
+          // جلب الكمية سواء من الهيكل الخاص بالـ API أو الـ Mock
+          const qty = item.OrderProduct ? item.OrderProduct.quantity : (item.quantity || 1);
+          return `
           <div class="expanded-item"
-            onclick="window.location.href='/pages/shop/product-detail.html?id=${item.product._id}'">
+            onclick="window.location.href='/pages/shop/product-detail.html?id=${prodId}'">
             <div class="exp-cover"
-              style="background:${getCover(item.product.category, item.product._id)}">
+              style="background:${getCover(prod.category, prodId)}">
               <i class="fa-solid fa-book-open"></i>
-              ${item.product.title}
+              ${prod.title}
             </div>
             <div class="exp-info">
-              <div class="exp-title">${item.product.title}</div>
-              <div class="exp-author">${item.product.author || ''}</div>
-              <div class="exp-qty">الكمية: ${item.quantity}</div>
+              <div class="exp-title">${prod.title}</div>
+              <div class="exp-author">${prod.author || ''}</div>
+              <div class="exp-qty">الكمية: ${qty}</div>
             </div>
-            <div class="exp-price">${formatPrice(item.product.price * item.quantity, 'EGP')}</div>
-          </div>`).join('')}
+            <div class="exp-price">${formatPrice(prod.price * qty, 'EGP')}</div>
+          </div>`;
+        }).join('')}
       </div>
     </div>`;
 
@@ -253,38 +313,36 @@ function renderOrderCard(order, idx) {
   if (['pending','confirmed','preparing','shipped'].includes(order.status)) {
     actions.push(`
       <button class="btn btn-outline btn-sm"
-        onclick="trackOrder('${order._id}')">
+        onclick="trackOrder('${orderId}')">
         <i class="fa-solid fa-location-dot"></i> تتبّع الطلب
       </button>`);
   }
   if (order.status === 'delivered') {
     actions.push(`
       <button class="btn btn-outline btn-sm"
-        onclick="reorder('${order._id}')">
+        onclick="reorder('${orderId}')">
         <i class="fa-solid fa-rotate-right"></i> أعد الطلب
       </button>`);
   }
   if (['pending','confirmed'].includes(order.status)) {
     actions.push(`
       <button class="btn btn-sm" style="color:var(--danger);border:1.5px solid var(--border)"
-        onclick="cancelOrder('${order._id}')">
+        onclick="cancelOrder('${orderId}')">
         <i class="fa-solid fa-xmark"></i> إلغاء
       </button>`);
   }
   actions.push(`
     <button class="btn btn-outline btn-sm"
-      onclick="toggleExpand('${order._id}')">
+      onclick="toggleExpand('${orderId}')">
       <i class="fa-solid fa-chevron-${isOpen ? 'up' : 'down'}"></i>
       ${isOpen ? 'إخفاء' : 'تفاصيل'}
     </button>`);
 
   return `
-  <div class="order-card" id="order-${order._id}" style="animation-delay:${idx * 0.06}s">
-
-    <!-- Head -->
+  <div class="order-card" id="order-${orderId}" style="animation-delay:${idx * 0.06}s">
     <div class="order-head">
       <div class="order-head-left">
-        <span class="order-id">#${order._id}</span>
+        <span class="order-id">#${orderId}</span>
         <span class="order-date">
           <i class="fa-regular fa-calendar" style="margin-left:4px"></i>
           ${formatDate(order.createdAt)}
@@ -298,26 +356,23 @@ function renderOrderCard(order, idx) {
       </div>
     </div>
 
-    <!-- Body -->
     <div class="order-body">
       <div class="order-items-preview">
         ${thumbsHtml}
         <div class="order-items-info">
           <div class="order-items-names">${namesHtml}</div>
-          <div class="order-items-count">${order.items.length} كتاب</div>
+          <div class="order-items-count">${orderProducts.length} كتاب</div>
         </div>
       </div>
     </div>
 
-    <!-- Expandable items -->
     ${expandedHtml}
 
-    <!-- Foot -->
     <div class="order-foot">
       <div class="order-foot-left">
         <div>
           <div class="order-total-label">الإجمالي</div>
-          <div class="order-total-value">${formatPrice(order.total, 'EGP')}</div>
+          <div class="order-total-value">${formatPrice(totalPrice, 'EGP')}</div>
         </div>
         <div class="order-payment-method">
           <i class="fa-solid ${payIcon}"></i>
@@ -375,7 +430,7 @@ function toggleExpand(orderId) {
   }
   // Re-render just that card efficiently
   const filtered = getFiltered();
-  const order = filtered.find(o => o._id === orderId);
+  const order = filtered.find(o => o.id === orderId);
   if (!order) return;
   const idx = filtered.indexOf(order);
   const cardEl = document.getElementById(`order-${orderId}`);
@@ -389,11 +444,11 @@ function trackOrder(orderId) {
 }
 
 function reorder(orderId) {
-  const order = allOrders.find(o => o._id === orderId);
+  const order = allOrders.find(o => o.id === orderId);
   if (!order) return;
   showToast('جارٍ إضافة الكتب للعربة...', 'info');
   setTimeout(() => {
-    const count = order.items.reduce((s, i) => s + i.quantity, 0);
+    const count = order.Products.reduce((s, i) => s + (i.OrderProduct?.quantity || 1),0);
     const current = parseInt(localStorage.getItem('thaqaf_cart_count') || '0');
     localStorage.setItem('thaqaf_cart_count', current + count);
     const badge = document.getElementById('cartBadge');
@@ -405,7 +460,7 @@ function reorder(orderId) {
 
 function cancelOrder(orderId) {
   if (!confirm('هل تريد إلغاء هذا الطلب؟')) return;
-  const order = allOrders.find(o => o._id === orderId);
+  const order = allOrders.find(o => o.id === orderId);
   if (!order) return;
   order.status = 'cancelled';
   updateStats();

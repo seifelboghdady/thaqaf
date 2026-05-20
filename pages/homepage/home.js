@@ -12,8 +12,8 @@ let allProducts = [];
 
 async function loadProducts() {
   try {
-    const data = await productsAPI.getAll(state.page, state.perPage);
-    allProducts = data.products || data || [];
+    const data = await productsAPI.getAll(1, 12);
+    allProducts = data.data || [];
     renderFeatured(allProducts.slice(0, 8));
     renderNew(allProducts.slice(-3));
   } catch (err) {
@@ -27,14 +27,14 @@ async function loadProducts() {
 /* ── Mock data (fallback) ── */
 function getMockProducts(count) {
   const books = [
-    { _id:'1', title:'Clean Code', author:'Robert C. Martin', price:280, oldPrice:350, category:'programming', rating:4.8, reviews:124 },
-    { _id:'2', title:'The Pragmatic Programmer', author:'Hunt & Thomas', price:320, oldPrice:null, category:'programming', rating:4.9, reviews:98 },
-    { _id:'3', title:'Deep Work', author:'Cal Newport', price:220, oldPrice:260, category:'productivity', rating:4.7, reviews:203 },
-    { _id:'4', title:'Atomic Habits', author:'James Clear', price:240, oldPrice:300, category:'selfdev', rating:4.9, reviews:512 },
-    { _id:'5', title:'The Phoenix Project', author:'Gene Kim', price:265, oldPrice:null, category:'business', rating:4.6, reviews:87 },
-    { _id:'6', title:'Design Patterns', author:'Gang of Four', price:340, oldPrice:420, category:'programming', rating:4.5, reviews:64 },
-    { _id:'7', title:'Getting Things Done', author:'David Allen', price:190, oldPrice:null, category:'productivity', rating:4.4, reviews:156 },
-    { _id:'8', title:'Python Crash Course', author:'Eric Matthes', price:295, oldPrice:360, category:'programming', rating:4.8, reviews:320 },
+    { id:'1', title:'Clean Code', author:'Robert C. Martin', price:280, oldPrice:350, category:'programming', rating:4.8, reviews:124 },
+    { id:'2', title:'The Pragmatic Programmer', author:'Hunt & Thomas', price:320, oldPrice:null, category:'programming', rating:4.9, reviews:98 },
+    { id:'3', title:'Deep Work', author:'Cal Newport', price:220, oldPrice:260, category:'productivity', rating:4.7, reviews:203 },
+    { id:'4', title:'Atomic Habits', author:'James Clear', price:240, oldPrice:300, category:'selfdev', rating:4.9, reviews:512 },
+    { id:'5', title:'The Phoenix Project', author:'Gene Kim', price:265, oldPrice:null, category:'business', rating:4.6, reviews:87 },
+    { id:'6', title:'Design Patterns', author:'Gang of Four', price:340, oldPrice:420, category:'programming', rating:4.5, reviews:64 },
+    { id:'7', title:'Getting Things Done', author:'David Allen', price:190, oldPrice:null, category:'productivity', rating:4.4, reviews:156 },
+    { id:'8', title:'Python Crash Course', author:'Eric Matthes', price:295, oldPrice:360, category:'programming', rating:4.8, reviews:320 },
   ];
   return books.slice(0, count);
 }

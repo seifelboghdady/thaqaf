@@ -205,6 +205,7 @@ async function removeItem(productId) {
 document.getElementById('checkoutBtn')?.addEventListener('click', () => {
 
   showToast('سيتم تحويلك لصفحة الدفع قريبًا', 'info');
+  window.location.href = '/pages/checkout/checkout.html';
 
 });
 

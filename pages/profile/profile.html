@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الملف الشخصي — ثقف</title>
+
+  <link rel="stylesheet" href="../../assets/css/global.css" />
+  <link rel="stylesheet" href="../../assets/css/navbar.css" />
+  <link rel="stylesheet" href="profile.css" />
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="mainNavbar"></nav>
+
+  <!-- Header -->
+  <section class="profile-hero">
+    <div class="container">
+      <div class="profile-hero-content">
+
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar" id="profileAvatar">
+            س
+          </div>
+          <input
+              type="file" id="avatarInput" accept="image/*" hidden
+            />
+          <button class="avatar-edit-btn">
+            <i class="fa-solid fa-camera"></i>
+          </button>
+        </div>
+
+        <div class="profile-hero-info">
+          <span class="profile-badge">User</span>
+
+          <h1 id="profileName">سيف البغدادي</h1>
+
+          <p id="profileEmail">seifelboghdady13@gmail.com</p>
+
+          <div class="profile-meta">
+            <div class="meta-item">
+              <i class="fa-solid fa-box"></i>
+              <span>12 طلب</span>
+            </div>
+
+            <div class="meta-item">
+              <i class="fa-solid fa-book"></i>
+              <span>34 كتاب</span>
+            </div>
+
+            <div class="meta-item">
+              <i class="fa-solid fa-calendar"></i>
+              <span>منذ 2026</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="profile-page">
+    <div class="container">
+
+      <div class="profile-layout">
+
+        <!-- Sidebar -->
+        <aside class="profile-sidebar">
+
+          <button class="sidebar-link active" data-tab="account">
+            <i class="fa-regular fa-user"></i>
+            <span>البيانات الشخصية</span>
+          </button>
+
+          <button class="sidebar-link" data-tab="security">
+            <i class="fa-solid fa-lock"></i>
+            <span>الأمان</span>
+          </button>
+
+          <button class="sidebar-link" data-tab="address">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>العناوين</span>
+          </button>
+
+          <button class="sidebar-link" data-tab="preferences">
+            <i class="fa-solid fa-gear"></i>
+            <span>الإعدادات</span>
+          </button>
+
+        </aside>
+
+        <!-- Content -->
+        <section class="profile-content">
+
+          <!-- Account -->
+          <div class="profile-card tab-panel active" id="account">
+
+            <div class="card-head">
+              <div>
+                <h2>البيانات الشخصية</h2>
+                <p>قم بتحديث بيانات حسابك الشخصية</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label>الاسم الكامل</label>
+                <input type="text" class="form-input" id="fullName" />
+              </div>
+
+              <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" class="form-input" id="email" />
+              </div>
+
+              <div class="form-group">
+                <label>رقم الهاتف</label>
+                <input type="text" class="form-input" id="phone" />
+              </div>
+
+              <div class="form-group">
+                <label>المدينة</label>
+                <input type="text" class="form-input" id="city" />
+              </div>
+
+            </div>
+
+            <button class="save-btn" id="saveProfileBtn">
+              <i class="fa-solid fa-floppy-disk"></i>
+              حفظ التغييرات
+            </button>
+
+          </div>
+
+          <!-- Security -->
+          <div class="profile-card tab-panel" id="security">
+
+            <div class="card-head">
+              <div>
+                <h2>الأمان وكلمة المرور</h2>
+                <p>قم بتغيير كلمة المرور الخاصة بك</p>
+              </div>
+            </div>
+
+            <div class="form-grid single">
+
+              <div class="form-group">
+                <label>كلمة المرور الحالية</label>
+                <input type="password" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label>كلمة المرور الجديدة</label>
+                <input type="password" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label>تأكيد كلمة المرور</label>
+                <input type="password" class="form-input" />
+              </div>
+
+            </div>
+
+            <button class="save-btn danger">
+              <i class="fa-solid fa-shield"></i>
+              تحديث كلمة المرور
+            </button>
+
+          </div>
+
+          <!-- Address -->
+          <div class="profile-card tab-panel" id="address">
+
+            <div class="card-head between">
+              <div>
+                <h2>العناوين المحفوظة</h2>
+                <p>إدارة عناوين الشحن الخاصة بك</p>
+              </div>
+
+              <button class="outline-btn">
+                <i class="fa-solid fa-plus"></i>
+                إضافة عنوان
+              </button>
+            </div>
+
+            <div class="address-list">
+
+              <div class="address-card">
+                <div>
+                  <span class="address-tag">المنزل</span>
+                  <h4>القاهرة، مدينة نصر</h4>
+                  <p>شارع عباس العقاد، برج 12، شقة 5</p>
+                </div>
+
+                <div class="address-actions">
+                  <button><i class="fa-regular fa-pen-to-square"></i></button>
+                  <button><i class="fa-regular fa-trash-can"></i></button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Preferences -->
+          <div class="profile-card tab-panel" id="preferences">
+
+            <div class="card-head">
+              <div>
+                <h2>الإعدادات</h2>
+                <p>تخصيص تجربة الاستخدام الخاصة بك</p>
+              </div>
+            </div>
+
+            <div class="settings-list">
+
+              <div class="setting-item">
+                <div>
+                  <h4>الإشعارات البريدية</h4>
+                  <p>استقبال العروض والتحديثات</p>
+                </div>
+
+                <label class="switch">
+                  <input type="checkbox" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="setting-item">
+                <div>
+                  <h4>الوضع الليلي</h4>
+                  <p>تفعيل المظهر الداكن</p>
+                </div>
+
+                <label class="switch">
+                  <input type="checkbox">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../assets/js/utils.js"></script>
+  <script src="../../assets/js/auth.js"></script>
+  <script src="../../assets/js/api.js"></script>
+  <script src="../../assets/js/navbar.js"></script>
+  <script src="profile.js"></script>
+
+</body>
+</html>

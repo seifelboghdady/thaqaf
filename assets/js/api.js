@@ -4,7 +4,7 @@
  */
 
 // const API_BASE = 'http://localhost:3000/api'; // غيّر حسب الـ backend URL
-const API_BASE = 'http://192.168.1.5:3000/api';
+const API_BASE = 'http://192.168.1.4:3000/api';
 
 /**
  * الـ request الأساسي
@@ -83,4 +83,29 @@ const cartAPI = {
 const ordersAPI = {
   create:   (data) => api.post('/orders', data),
   getUserOrders: () => api.get('/orders'),
+};
+
+// Profile & Password (تمت الإضافة والإغلاق الصحيح هنا)
+const profileAPI = {
+  update: (formData) => {
+    const token = localStorage.getItem('thaqaf_token');
+    return fetch(`${API_BASE}/profile`, { 
+      method: 'PUT',
+      headers: {
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+      },
+      body: formData
+    }).then(async (res) => {
+      if (res.status === 401) {
+        authLogout();
+        window.location.href = '/pages/auth/login.html';
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok) throw { status: res.status, message: data.message || 'حدث خطأ ما' };
+      return data;
+    });
+  },
+
+  updatePassword: (data) => api.put('/profile/password', data)
 };

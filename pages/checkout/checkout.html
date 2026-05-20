@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إتمام الطلب — ثقف</title>
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<nav class="navbar" id="mainNavbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="/pages/homepage/index.html" class="nav-logo">
+        <div class="nav-logo-icon">ث</div>
+        <span class="nav-logo-name">ثقف</span>
+      </a>
+      <div class="nav-links">
+        <a href="/pages/homepage/index.html"       class="nav-link" data-page="home">الرئيسية</a>
+        <a href="/pages/shop/products.html"    class="nav-link" data-page="shop">المتجر</a>
+        <a href="/pages/orders/my-orders.html" class="nav-link" data-page="orders">طلباتي</a>
+      </div>
+      <div class="nav-actions">
+        <a href="/pages/cart/cart.html" class="nav-icon-btn">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="nav-badge" id="cartBadge" style="display:none">0</span>
+        </a>
+        <div class="nav-auth" id="navGuest">
+          <a href="/pages/auth/login.html" class="btn btn-outline btn-sm">دخول</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+          <button class="nav-avatar" id="navAvatar"><span id="avatarText">م</span></button>
+          <div class="nav-dropdown" id="navDropdown">
+            <div style="padding:10px 12px 8px;border-bottom:1px solid var(--border);margin-bottom:4px;">
+              <div style="font-size:.85rem;font-weight:600;color:var(--text-main)" id="dropUserName"></div>
+              <div style="font-size:.75rem;color:var(--text-hint)" id="dropUserEmail"></div>
+            </div>
+            <a href="/pages/profile/profile.html"  class="nav-dropdown-item"><i class="fa-regular fa-user"></i> حسابي</a>
+            <a href="/pages/orders/my-orders.html" class="nav-dropdown-item"><i class="fa-regular fa-bag-shopping"></i> طلباتي</a>
+            <a href="/thaqaf/admin/index.html" class="nav-dropdown-item hidden" id="adminLink"><i class="fa-solid fa-gauge"></i> لوحة الإدارة</a>
+            <div class="nav-dropdown-divider"></div>
+            <button class="nav-dropdown-item danger" data-action="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> خروج</button>
+          </div>
+        </div>
+        <button class="nav-mobile-toggle" id="mobileToggle"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/pages/homepage/index.html"       class="nav-mobile-link"><i class="fa-solid fa-house"></i> الرئيسية</a>
+    <a href="/pages/shop/products.html"    class="nav-mobile-link"><i class="fa-solid fa-store"></i> المتجر</a>
+    <a href="/pages/orders/my-orders.html" class="nav-mobile-link"><i class="fa-solid fa-box"></i> طلباتي</a>
+  </div>
+</nav>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<div class="checkout-header">
+  <div class="container">
+    <div class="checkout-header-inner">
+      <nav class="checkout-breadcrumb">
+        <a href="/pages/homepage/index.html">الرئيسية</a>
+        <i class="fa-solid fa-chevron-left"></i>
+        <a href="/pages/cart/cart.html">العربة</a>
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>إتمام الطلب</span>
+      </nav>
+      <h1>إتمام الطلب</h1>
+      <p>خطوة واحدة فقط تفصلك عن كتبك!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ STEPPER ══════════════ -->
+<div class="checkout-stepper">
+  <div class="container">
+    <div class="stepper-inner">
+      <div class="stepper-step done">
+        <div class="step-circle"><i class="fa-solid fa-check" style="font-size:.65rem"></i></div>
+        <span class="step-label">العربة</span>
+      </div>
+      <div class="stepper-step active">
+        <div class="step-circle">2</div>
+        <span class="step-label">الدفع</span>
+      </div>
+      <div class="stepper-step">
+        <div class="step-circle">3</div>
+        <span class="step-label">التأكيد</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<div class="container">
+  <div class="checkout-layout">
+
+    <!-- ── LEFT: FORM ── -->
+    <div class="checkout-form-col">
+
+      <!-- 1. Contact Info -->
+      <div class="checkout-section">
+        <div class="section-head">
+          <div class="section-num">1</div>
+          <h3><i class="fa-regular fa-user" style="color:var(--brand-400);margin-left:6px"></i> بيانات التواصل</h3>
+        </div>
+        <div class="section-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="firstName">الاسم الأول</label>
+              <div style="position:relative">
+                <i class="fa-regular fa-user" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-hint);font-size:.85rem;pointer-events:none"></i>
+                <input type="text" id="firstName" class="form-input" style="padding-right:36px" placeholder="محمد">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName">الاسم الأخير</label>
+              <input type="text" id="lastName" class="form-input" placeholder="أحمد">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">البريد الإلكتروني</label>
+              <div style="position:relative">
+                <i class="fa-regular fa-envelope" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-hint);font-size:.85rem;pointer-events:none"></i>
+                <input type="email" id="email" class="form-input" style="padding-right:36px" placeholder="example@email.com" dir="ltr">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">رقم الهاتف</label>
+              <div style="position:relative">
+                <i class="fa-solid fa-phone" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-hint);font-size:.85rem;pointer-events:none"></i>
+                <input type="tel" id="phone" class="form-input" style="padding-right:36px" placeholder="01xxxxxxxxx" dir="ltr">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Delivery Address -->
+      <div class="checkout-section">
+        <div class="section-head">
+          <div class="section-num">2</div>
+          <h3><i class="fa-solid fa-location-dot" style="color:var(--brand-400);margin-left:6px"></i> عنوان التوصيل</h3>
+        </div>
+        <div class="section-body">
+          <!-- Saved addresses -->
+          <div class="saved-addresses" id="savedAddresses">
+            <label class="address-card selected" onclick="selectAddress(this)">
+              <input type="radio" name="address" value="home" checked>
+              <div class="address-card-body">
+                <div class="address-tag"><i class="fa-solid fa-house"></i> المنزل</div>
+                <div class="address-name" id="savedAddressName">محمد أحمد</div>
+                <div class="address-line">شارع التحرير، عمارة 12، شقة 4</div>
+                <div class="address-line">المهندسين، الجيزة، مصر</div>
+              </div>
+            </label>
+            <label class="address-card" onclick="selectAddress(this)">
+              <input type="radio" name="address" value="work">
+              <div class="address-card-body">
+                <div class="address-tag"><i class="fa-solid fa-briefcase"></i> العمل</div>
+                <div class="address-name" id="savedAddressName2">محمد أحمد</div>
+                <div class="address-line">برج النيل، الدور 8، مكتب 801</div>
+                <div class="address-line">وسط البلد، القاهرة، مصر</div>
+              </div>
+            </label>
+          </div>
+
+          <!-- New address toggle -->
+          <div class="new-address-toggle" id="newAddressToggle" onclick="toggleNewAddress()">
+            <i class="fa-solid fa-plus"></i> إضافة عنوان جديد
+          </div>
+
+          <!-- New address form -->
+          <div class="new-address-form" id="newAddressForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="city">المحافظة</label>
+                <select id="city" class="form-input">
+                  <option value="">اختر المحافظة</option>
+                  <option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option>
+                  <option>الشرقية</option><option>القليوبية</option><option>المنوفية</option>
+                  <option>الدقهلية</option><option>البحيرة</option><option>الغربية</option>
+                  <option>كفر الشيخ</option><option>دمياط</option><option>بورسعيد</option>
+                  <option>الإسماعيلية</option><option>السويس</option><option>أسيوط</option>
+                  <option>سوهاج</option><option>قنا</option><option>الأقصر</option><option>أسوان</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="area">المنطقة / الحي</label>
+                <input type="text" id="area" class="form-input" placeholder="المهندسين">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="street">الشارع والعمارة</label>
+              <input type="text" id="street" class="form-input" placeholder="شارع التحرير، عمارة 5، شقة 3">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="floor">الدور / الشقة</label>
+                <input type="text" id="floor" class="form-input" placeholder="الدور 3 شقة 10">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="landmark">علامة مميزة <span style="color:var(--text-hint);font-weight:400">(اختياري)</span></label>
+                <input type="text" id="landmark" class="form-input" placeholder="بجانب مسجد النور">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Shipping Method -->
+      <div class="checkout-section">
+        <div class="section-head">
+          <div class="section-num">3</div>
+          <h3><i class="fa-solid fa-truck" style="color:var(--brand-400);margin-left:6px"></i> طريقة الشحن</h3>
+        </div>
+        <div class="section-body">
+          <div class="shipping-options">
+            <label class="shipping-option selected" onclick="selectShipping(this, 0)">
+              <input type="radio" name="shipping" value="free" checked>
+              <div class="shipping-icon"><i class="fa-solid fa-box"></i></div>
+              <div class="shipping-info">
+                <div class="shipping-name">شحن عادي</div>
+                <div class="shipping-desc">التوصيل خلال 3-5 أيام عمل</div>
+              </div>
+              <div class="shipping-price free" id="freeShippingLabel">مجاني</div>
+            </label>
+            <label class="shipping-option" onclick="selectShipping(this, 60)">
+              <input type="radio" name="shipping" value="express">
+              <div class="shipping-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div class="shipping-info">
+                <div class="shipping-name">شحن سريع</div>
+                <div class="shipping-desc">التوصيل خلال 24-48 ساعة</div>
+              </div>
+              <div class="shipping-price">60 ج.م</div>
+            </label>
+            <label class="shipping-option" onclick="selectShipping(this, 120)">
+              <input type="radio" name="shipping" value="sameday">
+              <div class="shipping-icon"><i class="fa-solid fa-rocket"></i></div>
+              <div class="shipping-info">
+                <div class="shipping-name">توصيل في نفس اليوم</div>
+                <div class="shipping-desc">القاهرة والجيزة فقط — طلب قبل 12 ظهراً</div>
+              </div>
+              <div class="shipping-price">120 ج.م</div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Payment Method -->
+      <div class="checkout-section">
+        <div class="section-head">
+          <div class="section-num">4</div>
+          <h3><i class="fa-solid fa-credit-card" style="color:var(--brand-400);margin-left:6px"></i> طريقة الدفع</h3>
+        </div>
+        <div class="section-body">
+          <div class="payment-options">
+
+            <!-- Cash on Delivery -->
+            <div class="payment-option" data-method="cod" onclick="selectPayment(this)">
+              <div class="payment-option-head">
+                <input type="radio" name="payment" value="cod">
+                <div class="payment-icon cod"><i class="fa-solid fa-money-bill-wave"></i></div>
+                <div class="payment-info">
+                  <div class="payment-name">كاش عند الاستلام</div>
+                  <div class="payment-desc">ادفع نقداً عند استلام طلبك</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Credit / Debit Card -->
+            <div class="payment-option" data-method="card" onclick="selectPayment(this)">
+              <div class="payment-option-head">
+                <input type="radio" name="payment" value="card">
+                <div class="payment-icon card"><i class="fa-solid fa-credit-card"></i></div>
+                <div class="payment-info">
+                  <div class="payment-name">بطاقة بنكية</div>
+                  <div class="payment-desc">Visa / Mastercard / Meeza</div>
+                </div>
+                <div class="payment-brands">
+                  <span class="pay-brand">VISA</span>
+                  <span class="pay-brand">MC</span>
+                  <span class="pay-brand">Meeza</span>
+                </div>
+              </div>
+              <!-- Card fields (revealed on select) -->
+              <div class="payment-option-body">
+                <div class="form-group">
+                  <label class="form-label">رقم البطاقة</label>
+                  <div class="card-input-wrap">
+                    <i class="fa-brands fa-cc-visa card-brand-icon" id="cardBrandIcon"></i>
+                    <input type="text" id="cardNumber" class="form-input"
+                      placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCardNumber(this)">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">اسم حامل البطاقة</label>
+                  <input type="text" id="cardName" class="form-input" placeholder="MOHAMED AHMED" dir="ltr"
+                    style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()">
+                </div>
+                <div class="card-row">
+                  <div class="form-group">
+                    <label class="form-label">تاريخ الانتهاء</label>
+                    <input type="text" id="cardExpiry" class="form-input" placeholder="MM/YY"
+                      maxlength="5" dir="ltr" oninput="formatExpiry(this)">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">CVV</label>
+                    <div style="position:relative">
+                      <input type="password" id="cardCVV" class="form-input" placeholder="•••" maxlength="4" dir="ltr">
+                      <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-hint);font-size:.8rem;cursor:help" title="الرقم الموجود خلف البطاقة">
+                        <i class="fa-solid fa-circle-info"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <label style="display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--text-muted);cursor:pointer">
+                  <input type="checkbox" id="saveCard" style="accent-color:var(--brand-500)">
+                  حفظ البطاقة للطلبات القادمة
+                </label>
+              </div>
+            </div>
+
+            <!-- E-Wallet -->
+            <div class="payment-option" data-method="wallet" onclick="selectPayment(this)">
+              <div class="payment-option-head">
+                <input type="radio" name="payment" value="wallet">
+                <div class="payment-icon wallet"><i class="fa-solid fa-wallet"></i></div>
+                <div class="payment-info">
+                  <div class="payment-name">محفظة إلكترونية</div>
+                  <div class="payment-desc">Vodafone Cash / فوري / اتصالات كاش</div>
+                </div>
+              </div>
+              <!-- Wallet sub-options -->
+              <div class="wallet-options" id="walletOptions">
+                <div class="wallet-option" data-wallet="vodafone" onclick="event.stopPropagation();selectWallet(this)">
+                  <i class="fa-solid fa-mobile-screen" style="color:#e60000"></i>
+                  Vodafone Cash
+                </div>
+                <div class="wallet-option" data-wallet="fawry" onclick="event.stopPropagation();selectWallet(this)">
+                  <i class="fa-solid fa-f" style="color:#f7941d"></i>
+                  فوري
+                </div>
+                <div class="wallet-option" data-wallet="etisalat" onclick="event.stopPropagation();selectWallet(this)">
+                  <i class="fa-solid fa-mobile-screen" style="color:#009540"></i>
+                  اتصالات كاش
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Order Notes -->
+      <div class="checkout-section">
+        <div class="section-head">
+          <div class="section-num">5</div>
+          <h3><i class="fa-regular fa-note-sticky" style="color:var(--brand-400);margin-left:6px"></i> ملاحظات الطلب</h3>
+        </div>
+        <div class="section-body">
+          <button class="notes-toggle" onclick="toggleNotes()">
+            <i class="fa-solid fa-plus" id="notesIcon"></i>
+            <span id="notesToggleText">إضافة ملاحظة للمندوب أو المتجر</span>
+          </button>
+          <div class="notes-area" id="notesArea">
+            <textarea class="form-input" id="orderNotes" rows="3"
+              placeholder="مثلاً: يرجى التواصل قبل التوصيل / الاتصال على الباب الخلفي..."></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /checkout-form-col -->
+
+    <!-- ── RIGHT: SUMMARY ── -->
+    <div class="summary-col">
+
+      <!-- Items summary -->
+      <div class="summary-card">
+        <div class="summary-head">
+          ملخص الطلب
+          <a href="/pages/cart/cart.html">تعديل العربة</a>
+        </div>
+        <div class="summary-items" id="summaryItems">
+          <!-- Populated by JS -->
+        </div>
+        <div class="summary-totals">
+          <div class="sum-row">
+            <span>سعر المنتجات</span>
+            <span class="val" id="sumSubtotal">—</span>
+          </div>
+          <div class="sum-row discount hidden" id="sumDiscountRow">
+            <span>خصم المنتجات</span>
+            <span class="val" id="sumDiscount">—</span>
+          </div>
+          <div class="sum-row coupon hidden" id="sumCouponRow">
+            <span>كود الخصم <span id="sumCouponCode" style="font-size:.7rem;background:var(--brand-100);color:var(--brand-600);padding:1px 6px;border-radius:20px"></span></span>
+            <span class="val" id="sumCouponDiscount">—</span>
+          </div>
+          <div class="sum-row">
+            <span>الشحن</span>
+            <span class="val" id="sumShipping" style="color:var(--success)">مجاني</span>
+          </div>
+          <div class="sum-divider"></div>
+          <div class="sum-total">
+            <span class="lbl">الإجمالي</span>
+            <span class="val" id="sumTotal">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Place order -->
+      <div class="place-order-section">
+        <button class="btn btn-primary place-order-btn" id="placeOrderBtn" onclick="placeOrder()">
+          <span class="btn-text"><i class="fa-solid fa-lock"></i> تأكيد الطلب</span>
+          <span class="btn-spinner"></span>
+        </button>
+        <div class="secure-note">
+          <i class="fa-solid fa-shield-halved"></i>
+          بياناتك مشفّرة وآمنة 100%
+        </div>
+        <div class="pay-icons-row">
+          <span class="pay-chip">VISA</span>
+          <span class="pay-chip">MasterCard</span>
+          <span class="pay-chip">Meeza</span>
+          <span class="pay-chip">فوري</span>
+          <span class="pay-chip">كاش</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ SUCCESS OVERLAY ══════════════ -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <h2>تم تأكيد طلبك! 🎉</h2>
+    <p>شكراً لك على ثقتك في ثقف. طلبك قيد التجهيز الآن.</p>
+    <p style="font-size:.82rem;margin-top:4px">رقم طلبك:</p>
+    <div class="order-num-badge" id="successOrderNum">ORD-2025-XXXXX</div>
+    <p style="font-size:.82rem;color:var(--text-hint)">سيصلك تأكيد على بريدك الإلكتروني</p>
+    <div class="success-actions">
+      <a href="/pages/orders/my-orders.html" class="btn btn-primary">
+        <i class="fa-solid fa-box"></i> تتبّع الطلب
+      </a>
+      <a href="/pages/shop/products.html" class="btn btn-outline">
+        متابعة التسوق
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="../../assets/js/utils.js"></script>
+<script src="../../assets/js/auth.js"></script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="checkout.js"></script>
+</body>
+</html>

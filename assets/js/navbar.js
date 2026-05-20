@@ -32,7 +32,7 @@ function initNavbar(activePage = '') {
   document.addEventListener('click', () => dropdown?.classList.remove('open'));
 
   /* ── Logout ── */
-  document.querySelectorAll('[data-action="logout"]').forEach(btn => {
+  document.querySelectorAll('[data-action=\"logout\"]').forEach(btn => {
     btn.addEventListener('click', () => {
       authLogout();
       window.location.href = '/pages/auth/login.html';
@@ -57,7 +57,19 @@ function initNavbar(activePage = '') {
   if (user) {
     guestZone?.classList.add('hidden');
     userZone?.classList.remove('hidden');
-    if (avatarText) avatarText.textContent = user.name?.charAt(0) || 'U';
+    
+    // ════════ الإصلاح الفعلي لعرض الصورة ════════
+    if (avatarBtn) {
+      if (user.image) {
+        // إذا كان هناك صورة، يتم حقنها داخل زر الـ avatar واستبدال النص التلقائي
+        avatarBtn.innerHTML = `<img src="${user.image}" alt="${user.name}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />`;
+      } else if (avatarText) {
+        // العودة للحرف الأول إذا لم تكن الصورة مرفوعة
+        avatarText.textContent = user.name?.charAt(0) || 'U';
+      }
+    }
+    // ═════════════════════════════════════════
+
     if (dropName)   dropName.textContent   = user.name  || '';
     if (dropEmail)  dropEmail.textContent  = user.email || '';
     if (adminLink && authIsAdmin()) adminLink.classList.remove('hidden');
