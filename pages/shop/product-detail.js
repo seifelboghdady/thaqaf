@@ -319,7 +319,7 @@ function buyNow() {
     return;
   }
   localStorage.setItem('thaqaf_buynow', JSON.stringify({ productId: product.id, quantity: qty }));
-  window.location.href = '/pages/cart/checkout.html?buynow=1';
+  window.location.href = 'pages/checkout/checkout.html?buynow=1';
 }
 
 /* Wishlist */
