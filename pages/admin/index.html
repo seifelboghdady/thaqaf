@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الإدارة — ثقف</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="admin-layout">
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="admin-sidebar" id="adminSidebar">
+
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon">ث</div>
+    <div>
+      <span class="sidebar-logo-text">ثقف</span>
+      <span class="sidebar-logo-badge">ADMIN</span>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">الرئيسية</div>
+    <a href="/thaqaf/admin/index.html" class="sidebar-link active">
+      <span class="link-icon"><i class="fa-solid fa-gauge"></i></span>
+      لوحة التحكم
+    </a>
+
+    <div class="sidebar-section-label" style="margin-top:14px">إدارة المتجر</div>
+    <a href="/thaqaf/admin/products/list.html" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-book"></i></span>
+      المنتجات
+    </a>
+    <a href="/thaqaf/admin/orders/list.html" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-box"></i></span>
+      الطلبات
+      <span class="link-badge">3</span>
+    </a>
+    <a href="/thaqaf/admin/users/list.html" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-users"></i></span>
+      المستخدمون
+    </a>
+
+    <div class="sidebar-section-label" style="margin-top:14px">التقارير</div>
+    <a href="#" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-chart-line"></i></span>
+      المبيعات
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="link-icon"><i class="fa-regular fa-star"></i></span>
+      التقييمات
+      <span class="link-badge new">جديد</span>
+    </a>
+    <a href="#" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-tags"></i></span>
+      كودات الخصم
+    </a>
+
+    <div class="sidebar-section-label" style="margin-top:14px">الإعدادات</div>
+    <a href="#" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-gear"></i></span>
+      إعدادات المتجر
+    </a>
+    <a href="/thaqaf/pages/home/index.html" class="sidebar-link" target="_blank">
+      <span class="link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+      عرض المتجر
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user" onclick="logoutAdmin()">
+      <div class="sidebar-avatar" id="sidebarAvatar">أ</div>
+      <div>
+        <div class="sidebar-user-name" id="sidebarName">Admin</div>
+        <div class="sidebar-user-role">مدير النظام</div>
+      </div>
+      <i class="fa-solid fa-arrow-right-from-bracket" style="color:rgba(255,255,255,.3);margin-right:auto;font-size:.8rem"></i>
+    </div>
+  </div>
+
+</aside>
+
+<!-- Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="admin-main">
+
+  <!-- Top Bar -->
+  <div class="admin-topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" onclick="openSidebar()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div>
+        <div class="topbar-breadcrumb">
+          <span>الرئيسية</span>
+          <i class="fa-solid fa-chevron-left"></i>
+          <span>لوحة التحكم</span>
+        </div>
+        <div class="topbar-title">لوحة التحكم</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-icon-btn" title="إشعارات">
+        <i class="fa-regular fa-bell"></i>
+        <span class="topbar-notif-dot"></span>
+      </button>
+      <button class="topbar-icon-btn" title="بحث">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <a href="/thaqaf/pages/home/index.html" class="btn btn-outline btn-sm" target="_blank" style="gap:6px">
+        <i class="fa-solid fa-store"></i>
+        <span style="display:none" class="show-md">المتجر</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="admin-content">
+
+    <div class="page-header">
+      <h1 id="greetingTitle">مرحباً 👋</h1>
+      <p id="greetingSub">إليك ملخص أداء المتجر اليوم</p>
+    </div>
+
+    <!-- ── KPI Cards ── -->
+    <div class="kpi-grid" id="kpiGrid">
+      <!-- Skeleton -->
+      <div class="kpi-card"><div class="skel" style="height:14px;width:60%;margin-bottom:10px"></div><div class="skel" style="height:28px;width:45%"></div></div>
+      <div class="kpi-card"><div class="skel" style="height:14px;width:60%;margin-bottom:10px"></div><div class="skel" style="height:28px;width:45%"></div></div>
+      <div class="kpi-card"><div class="skel" style="height:14px;width:60%;margin-bottom:10px"></div><div class="skel" style="height:28px;width:45%"></div></div>
+      <div class="kpi-card"><div class="skel" style="height:14px;width:60%;margin-bottom:10px"></div><div class="skel" style="height:28px;width:45%"></div></div>
+    </div>
+
+    <!-- ── Charts Row ── -->
+    <div class="charts-row">
+
+      <!-- Revenue Chart -->
+      <div class="chart-card">
+        <div class="chart-head">
+          <div>
+            <h3>المبيعات الشهرية</h3>
+            <p>إجمالي الإيرادات خلال الفترة المحددة</p>
+          </div>
+          <div class="chart-period-tabs">
+            <button class="period-tab active" onclick="switchPeriod(this,'7d')">7 أيام</button>
+            <button class="period-tab" onclick="switchPeriod(this,'30d')">30 يوم</button>
+            <button class="period-tab" onclick="switchPeriod(this,'12m')">12 شهر</button>
+          </div>
+        </div>
+        <div class="chart-body" style="position:relative">
+          <div class="chart-tooltip" id="chartTooltip"></div>
+          <svg class="bar-chart-svg" id="revenueChart" height="220" viewBox="0 0 600 220"></svg>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="chart-card">
+        <div class="chart-head">
+          <div>
+            <h3>توزيع المبيعات</h3>
+            <p>حسب الفئة</p>
+          </div>
+        </div>
+        <div class="chart-body">
+          <div class="donut-wrap">
+            <svg class="donut-svg" width="160" height="160" viewBox="0 0 160 160" id="donutSvg"></svg>
+            <div class="donut-center">
+              <div class="big" id="donutCenter">0</div>
+              <div class="small">كتاب</div>
+            </div>
+          </div>
+          <div class="donut-legend" id="donutLegend"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Bottom Grid ── -->
+    <div class="bottom-grid">
+
+      <!-- Recent Orders Table -->
+      <div class="table-card">
+        <div class="table-head">
+          <h3><i class="fa-solid fa-box" style="color:var(--brand-400);margin-left:6px"></i> آخر الطلبات</h3>
+          <a href="/thaqaf/admin/orders/list.html" class="btn btn-outline btn-sm">عرض الكل</a>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table" id="recentOrdersTable">
+            <thead>
+              <tr>
+                <th>رقم الطلب</th>
+                <th>العميل</th>
+                <th>الإجمالي</th>
+                <th>طريقة الدفع</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody id="recentOrdersBody">
+              <!-- JS populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Top Books + Quick Actions -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- Top Selling Books -->
+        <div class="table-card">
+          <div class="table-head">
+            <h3><i class="fa-solid fa-fire" style="color:var(--accent);margin-left:6px"></i> الأكثر مبيعاً</h3>
+            <a href="/thaqaf/admin/products/list.html" class="btn btn-outline btn-sm">عرض الكل</a>
+          </div>
+          <div class="top-books-list" id="topBooksList"></div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="table-card">
+          <div class="table-head">
+            <h3><i class="fa-solid fa-bolt" style="color:var(--accent);margin-left:6px"></i> إجراءات سريعة</h3>
+          </div>
+          <div class="quick-actions-grid">
+            <a href="/thaqaf/admin/products/add-edit.html" class="quick-action">
+              <div class="qa-icon" style="background:var(--brand-100);color:var(--brand-600)"><i class="fa-solid fa-plus"></i></div>
+              <span class="qa-label">إضافة كتاب</span>
+            </a>
+            <a href="/thaqaf/admin/orders/list.html?status=pending" class="quick-action">
+              <div class="qa-icon" style="background:var(--accent-light);color:var(--accent-dark)"><i class="fa-solid fa-clock"></i></div>
+              <span class="qa-label">طلبات معلّقة</span>
+            </a>
+            <a href="/thaqaf/admin/users/list.html" class="quick-action">
+              <div class="qa-icon" style="background:#e6fffa;color:var(--success)"><i class="fa-solid fa-user-plus"></i></div>
+              <span class="qa-label">المستخدمون</span>
+            </a>
+            <a href="#" class="quick-action">
+              <div class="qa-icon" style="background:#f3e8ff;color:#9333ea"><i class="fa-solid fa-tag"></i></div>
+              <span class="qa-label">كود خصم جديد</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Activity Feed ── -->
+    <div class="activity-card">
+      <div class="table-head">
+        <h3><i class="fa-solid fa-wave-square" style="color:var(--brand-400);margin-left:6px"></i> آخر الأنشطة</h3>
+      </div>
+      <div class="activity-list" id="activityList"></div>
+    </div>
+
+  </div><!-- /admin-content -->
+</main>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
