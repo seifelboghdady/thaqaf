@@ -4,7 +4,7 @@
  */
 
 // const API_BASE = 'http://localhost:3000/api'; // غيّر حسب الـ backend URL
-const API_BASE = 'http://192.168.1.4:3000/api';
+const API_BASE = 'http://192.168.1.5:3000/api';
 
 /**
  * الـ request الأساسي
