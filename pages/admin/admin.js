@@ -306,7 +306,7 @@ function renderTopBooks() {
   document.getElementById('topBooksList').innerHTML = topBooks.map((b, i) => `
     <div class="top-book-item">
       <div class="rank-num ${rankClasses[i] || ''}">${i + 1}</div>
-      <div class="top-book-cover" style="background:${getCover(b.category,b._id)}">
+      <div class="top-book-cover" style="background:${getCover(b.category,b.id)}">
         <i class="fa-solid fa-book-open"></i>
         ${b.title}
       </div>

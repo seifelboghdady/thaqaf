@@ -78,7 +78,7 @@ function init() {
 
   product: {
     id: p.id,
-    title: p.title,
+    title: p.name,
     author: p.author,
     category: p.category,
     price: p.price,
@@ -105,10 +105,10 @@ function renderSummaryItems() {
     <div class="summary-item">
       <div class="sum-cover" style="background:${getCover(p.category, p.id)}">
         <i class="fa-solid fa-book-open"></i>
-        ${p.title}
+        ${p.name}
       </div>
       <div class="sum-info">
-        <div class="sum-title">${p.title}</div>
+        <div class="sum-title">${p.name}</div>
         <div class="sum-author">${p.author || ''}</div>
         <div class="sum-qty">× ${item.quantity}</div>
       </div>

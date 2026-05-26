@@ -10,6 +10,7 @@ initNavbar('shop');
 const state = {
   all:        [],      // كل الـ products من الـ API
   filtered:   [],      // بعد تطبيق الفلاتر
+  totalPages: 1,      
   page:       1,
   perPage:    12,
   view:       'grid',  // 'grid' | 'list'
@@ -72,6 +73,7 @@ async function loadProducts() {
   renderSkeletons();
   try {
     const data = await productsAPI.getAll(state.page, state.perPage);
+    state.totalPages = data.totalPages || 1;
     state.all = data.data || data.products || data || [];
   } catch {
     state.all = getMockProducts();
@@ -256,7 +258,7 @@ function renderSkeletons() {
    PAGINATION
 ══════════════════════════════════════════════ */
 function renderPagination() {
-  const total = Math.ceil(state.filtered.length / state.perPage);
+  const total = state.totalPages;
   const el    = document.getElementById('pagination');
   if (!el || total <= 1) { el && (el.innerHTML = ''); return; }
 
@@ -278,7 +280,7 @@ function renderPagination() {
 }
 
 function goPage(p) {
-  const total = Math.ceil(state.filtered.length / state.perPage);
+  const total = state.totalPages;
   if (p < 1 || p > total) return;
   state.page = p;
   loadProducts();
