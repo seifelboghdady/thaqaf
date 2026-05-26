@@ -103,7 +103,17 @@ function renderProduct() {
 
   // Cover
   const cover = document.getElementById('productCover');
-  cover.style.background = getCover(p.category, p.id);
+  if (p.image) {
+    cover.style.backgroundImage =
+      `url(${API_BASE.replace('/api', '')}/${p.image})`;
+
+    cover.style.backgroundSize = 'cover';
+    cover.style.backgroundPosition = 'center';
+
+  } else {
+    cover.style.background =
+      getCover(p.category, p.id);
+  }
   document.getElementById('coverTitle').textContent = p.title;
 
   // Badges on cover

@@ -4,7 +4,7 @@
  */
 
 // const API_BASE = 'http://localhost:3000/api'; // غيّر حسب الـ backend URL
-const API_BASE = 'http://192.168.1.5:3000/api';
+const API_BASE = 'http://192.168.1.4:3000/api';
 
 /**
  * الـ request الأساسي
@@ -15,8 +15,9 @@ const API_BASE = 'http://192.168.1.5:3000/api';
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem('thaqaf_token');
 
+  const isFormData = options.body instanceof FormData;
   const headers = {
-    'Content-Type': 'application/json',
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
     ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
     ...(options.headers || {}),
   };
@@ -51,8 +52,8 @@ async function request(endpoint, options = {}) {
 
 const api = {
   get:    (endpoint)       => request(endpoint, { method: 'GET' }),
-  post:   (endpoint, body) => request(endpoint, { method: 'POST',   body: JSON.stringify(body) }),
-  put:    (endpoint, body) => request(endpoint, { method: 'PUT',    body: JSON.stringify(body) }),
+  post:   (endpoint, body) => request(endpoint, { method: 'POST',   body: body instanceof FormData? body: JSON.stringify(body), }),
+  put:    (endpoint, body) => request(endpoint, { method: 'PUT',    body: body instanceof FormData? body: JSON.stringify(body), }),
   delete: (endpoint)       => request(endpoint, { method: 'DELETE' }),
 };
 

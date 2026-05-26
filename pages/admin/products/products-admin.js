@@ -17,7 +17,8 @@ const coverPalettes = {
 };
 function getCover(cat, id = '') {
   const arr = coverPalettes[cat] || coverPalettes.programming;
-  return arr[(id?.charCodeAt(id.length - 1) || 0) % arr.length];
+  const safeId = String(id || '');
+  return arr[(safeId.charCodeAt(safeId.length - 1) || 0) % arr.length];
 }
 
 /* ══════════════════════════════════════════════
@@ -83,7 +84,7 @@ function init() {
 async function loadProducts() {
   try {
     const data = await productsAPI.getAll();
-    allProducts = data.products || data || [];
+    allProducts = data.data || [];
     if (!allProducts.length) allProducts = [...mockProducts];
   } catch {
     allProducts = [...mockProducts];
@@ -425,17 +426,62 @@ async function saveProduct() {
   if (!price || price <= 0) { showToast('أدخل سعراً صحيحاً', 'error'); return; }
   if (isNaN(stock) || stock < 0) { showToast('أدخل كمية مخزون صحيحة', 'error'); return; }
 
-  const payload = {
-    name: title, author, category, price,
-    stock, available: document.getElementById('mAvailable').value === 'true',
-    oldPrice:    parseFloat(document.getElementById('mOldPrice').value) || null,
-    publisher:   document.getElementById('mPublisher').value.trim(),
-    year:        parseInt(document.getElementById('mYear').value)       || null,
-    pages:       parseInt(document.getElementById('mPages').value)      || null,
-    language:    document.getElementById('mLanguage').value,
-    isbn:        document.getElementById('mISBN').value.trim(),
-    description: document.getElementById('mDesc').value.trim(),
-  };
+const payload = new FormData();
+
+payload.append('name', title);
+payload.append('author', author);
+payload.append('category', category);
+payload.append('price', price);
+payload.append('stock', stock);
+
+payload.append(
+  'available',
+  document.getElementById('mAvailable').value === 'true'
+);
+
+payload.append(
+  'oldPrice',
+  parseFloat(document.getElementById('mOldPrice').value) || ''
+);
+
+payload.append(
+  'publisher',
+  document.getElementById('mPublisher').value.trim()
+);
+
+payload.append(
+  'year',
+  parseInt(document.getElementById('mYear').value) || ''
+);
+
+payload.append(
+  'pages',
+  parseInt(document.getElementById('mPages').value) || ''
+);
+
+payload.append(
+  'language',
+  document.getElementById('mLanguage').value
+);
+
+payload.append(
+  'isbn',
+  document.getElementById('mISBN').value.trim()
+);
+
+payload.append(
+  'description',
+  document.getElementById('mDesc').value.trim()
+);
+
+// الصورة
+const imageFile =
+  document.getElementById('imageInput').files[0];
+
+if (imageFile) {
+  payload.append('image', imageFile);
+}
+//=============================================================================//
 
   const btn      = document.getElementById('saveBtn');
   const editId   = document.getElementById('editProductId').value;
@@ -568,7 +614,7 @@ function exportCSV() {
 function openSidebar()  { document.getElementById('adminSidebar').classList.add('open');    document.getElementById('sidebarOverlay').classList.add('open'); }
 function closeSidebar() { document.getElementById('adminSidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
 
-function logoutAdmin() { authLogout(); window.location.href = '/thaqaf/pages/auth/login.html'; }
+function logoutAdmin() { authLogout(); window.location.href = '/pages/auth/login.html'; }
 
 /* ══════════════════════════════════════════════
    EVENT LISTENERS

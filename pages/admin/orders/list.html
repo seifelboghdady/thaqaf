@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة الطلبات — ثقف</title>
+  <link rel="stylesheet" href="orders-admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="admin-layout">
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon">ث</div>
+    <div><span class="sidebar-logo-text">ثقف</span><span class="sidebar-logo-badge">ADMIN</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">الرئيسية</div>
+    <a href="/pages/admin/index.html" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-gauge"></i></span> لوحة التحكم</a>
+    <div class="sidebar-section-label" style="margin-top:14px">إدارة المتجر</div>
+    <a href="/pages/admin/products/list.html" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-book"></i></span> المنتجات</a>
+    <a href="/pages/admin/orders/list.html" class="sidebar-link active"><span class="link-icon"><i class="fa-solid fa-box"></i></span> الطلبات<span class="link-badge" id="pendingBadge">0</span></a>
+    <a href="/pages/admin/users/list.html" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-users"></i></span> المستخدمون</a>
+    <div class="sidebar-section-label" style="margin-top:14px">التقارير</div>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-chart-line"></i></span> المبيعات</a>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-regular fa-star"></i></span> التقييمات</a>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-tags"></i></span> كودات الخصم</a>
+    <div class="sidebar-section-label" style="margin-top:14px">الإعدادات</div>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-gear"></i></span> إعدادات المتجر</a>
+    <a href="/pages/homepage/index.html" class="sidebar-link" target="_blank"><span class="link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span> عرض المتجر</a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user" onclick="logoutAdmin()">
+      <div class="sidebar-avatar" id="sidebarAvatar">أ</div>
+      <div><div class="sidebar-user-name" id="sidebarName">Admin</div><div class="sidebar-user-role">مدير النظام</div></div>
+      <i class="fa-solid fa-arrow-right-from-bracket" style="color:rgba(255,255,255,.3);margin-right:auto;font-size:.8rem"></i>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="admin-main">
+
+  <!-- Topbar -->
+  <div class="admin-topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></button>
+      <div>
+        <div class="topbar-breadcrumb">
+          <a href="/pages/admin/index.html">الرئيسية</a>
+          <i class="fa-solid fa-chevron-left"></i>
+          <span>الطلبات</span>
+        </div>
+        <div class="topbar-title">إدارة الطلبات</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-icon-btn"><i class="fa-regular fa-bell"></i><span class="topbar-notif-dot"></span></button>
+      <button class="btn btn-outline btn-sm" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> تصدير</button>
+    </div>
+  </div>
+
+  <div class="admin-content">
+
+    <div class="page-header">
+      <h1>الطلبات <span style="font-size:1rem;color:var(--text-muted);font-family:var(--font-body);font-weight:400" id="totalLabel"></span></h1>
+      <p>تتبّع ومعالجة وتحديث حالة جميع طلبات العملاء</p>
+    </div>
+
+    <!-- Stats cards -->
+    <div class="orders-stats" id="ordersStats"></div>
+
+    <!-- Toolbar -->
+    <div class="orders-toolbar">
+      <div class="toolbar-left">
+        <div class="search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="رقم الطلب، اسم العميل، أو الكتاب...">
+        </div>
+        <select class="filter-select" id="statusFilter">
+          <option value="all">كل الحالات</option>
+          <option value="pending">قيد الانتظار</option>
+          <option value="confirmed">مؤكد</option>
+          <option value="preparing">جارٍ التجهيز</option>
+          <option value="shipped">في الشحن</option>
+          <option value="delivered">تم التسليم</option>
+          <option value="cancelled">ملغى</option>
+        </select>
+        <select class="filter-select" id="payFilter">
+          <option value="all">كل طرق الدفع</option>
+          <option value="cod">كاش عند الاستلام</option>
+          <option value="card">بطاقة بنكية</option>
+          <option value="wallet">محفظة إلكترونية</option>
+        </select>
+        <div class="date-range">
+          <i class="fa-regular fa-calendar"></i>
+          <input type="date" id="dateFrom" title="من تاريخ">
+          <span style="color:var(--text-hint)">—</span>
+          <input type="date" id="dateTo" title="إلى تاريخ">
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn btn-outline btn-sm" onclick="clearFilters()"><i class="fa-solid fa-filter-circle-xmark"></i> مسح</button>
+      </div>
+    </div>
+
+    <!-- Table card -->
+    <div class="orders-table-card">
+
+      <!-- Bulk bar -->
+      <div class="bulk-bar" id="bulkBar">
+        <span class="bulk-count" id="bulkCount">0 محدد</span>
+        <button class="btn btn-outline btn-sm" onclick="bulkStatus('confirmed')"><i class="fa-solid fa-check"></i> تأكيد</button>
+        <button class="btn btn-outline btn-sm" onclick="bulkStatus('preparing')"><i class="fa-solid fa-box"></i> تجهيز</button>
+        <button class="btn btn-outline btn-sm" onclick="bulkStatus('shipped')"><i class="fa-solid fa-truck"></i> شحن</button>
+        <button class="btn btn-outline btn-sm" onclick="bulkStatus('delivered')"><i class="fa-solid fa-circle-check"></i> تسليم</button>
+        <button class="btn btn-sm" style="color:var(--danger);border:1.5px solid var(--border)" onclick="bulkStatus('cancelled')"><i class="fa-solid fa-xmark"></i> إلغاء</button>
+        <button class="btn btn-outline btn-sm" onclick="clearSelection()" style="margin-right:auto">إلغاء التحديد</button>
+      </div>
+
+      <!-- Table header -->
+      <div class="table-header-bar">
+        <span class="records-info">
+          عرض <strong id="showFrom">0</strong>–<strong id="showTo">0</strong> من <strong id="showTotal">0</strong> طلب
+        </span>
+        <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-muted)">
+          ترتيب:
+          <select class="filter-select" id="sortSelect" style="padding:5px 8px;font-size:.78rem">
+            <option value="newest">الأحدث أولاً</option>
+            <option value="oldest">الأقدم أولاً</option>
+            <option value="amount-desc">الأعلى قيمةً</option>
+            <option value="amount-asc">الأقل قيمةً</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th style="width:40px"><input type="checkbox" class="row-checkbox" id="selectAllCb" onchange="toggleSelectAll(this.checked)"></th>
+              <th onclick="sortCol('id')">رقم الطلب <i class="fa-solid fa-sort si"></i></th>
+              <th onclick="sortCol('customer')">العميل <i class="fa-solid fa-sort si"></i></th>
+              <th>الكتب</th>
+              <th onclick="sortCol('total')">الإجمالي <i class="fa-solid fa-sort si"></i></th>
+              <th>الدفع</th>
+              <th onclick="sortCol('date')">التاريخ <i class="fa-solid fa-sort si"></i></th>
+              <th>الحالة</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <div class="per-page-wrap">
+          عرض
+          <select class="per-page-select" id="perPageSel" onchange="setPerPage(this.value)">
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          في الصفحة
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ══════════════ ORDER DETAIL DRAWER ══════════════ -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="order-drawer" id="orderDrawer">
+  <div class="drawer-head">
+    <h2 id="drawerOrderId">—</h2>
+    <span id="drawerStatusBadge"></span>
+    <button class="drawer-close" onclick="closeDrawer()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot">
+    <button class="btn btn-primary" onclick="saveDrawerStatus()" style="flex:1"><i class="fa-solid fa-floppy-disk"></i> حفظ التغييرات</button>
+    <button class="btn btn-outline" onclick="printOrder()"><i class="fa-solid fa-print"></i></button>
+    <button class="btn btn-outline" onclick="closeDrawer()">إغلاق</button>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="../../../assets/js/utils.js"></script>
+<script src="../../../assets/js/auth.js"></script>
+<script src="../../../assets/js/api.js"></script>
+<script src="orders-admin.js"></script>
+</body>
+</html>
