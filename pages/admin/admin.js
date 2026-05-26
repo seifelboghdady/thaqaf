@@ -17,7 +17,8 @@ const coverPalettes = {
 };
 function getCover(cat, id = '') {
   const arr = coverPalettes[cat] || coverPalettes.programming;
-  return arr[(id?.charCodeAt(id.length - 1) || 0) % arr.length];
+  const safeId = String(id || '');
+  return arr[(safeId.charCodeAt(safeId.length - 1) || 0) % arr.length];
 }
 
 /* ══════════════════════════════════════════════
