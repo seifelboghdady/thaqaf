@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة المنتجات — ثقف</title>
+  <link rel="stylesheet" href="products-admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="admin-layout">
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon">ث</div>
+    <div>
+      <span class="sidebar-logo-text">ثقف</span>
+      <span class="sidebar-logo-badge">ADMIN</span>
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">الرئيسية</div>
+    <a href="/pages/admin/index.html" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-gauge"></i></span> لوحة التحكم
+    </a>
+    <div class="sidebar-section-label" style="margin-top:14px">إدارة المتجر</div>
+    <a href="/pages/admin/products/list.html" class="sidebar-link active">
+      <span class="link-icon"><i class="fa-solid fa-book"></i></span> المنتجات
+    </a>
+    <a href="/pages/admin/orders/list.html" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-box"></i></span> الطلبات
+      <span class="link-badge">3</span>
+    </a>
+    <a href="/pages/admin/users/list.html" class="sidebar-link">
+      <span class="link-icon"><i class="fa-solid fa-users"></i></span> المستخدمون
+    </a>
+    <div class="sidebar-section-label" style="margin-top:14px">التقارير</div>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-chart-line"></i></span> المبيعات</a>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-regular fa-star"></i></span> التقييمات</a>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-tags"></i></span> كودات الخصم</a>
+    <div class="sidebar-section-label" style="margin-top:14px">الإعدادات</div>
+    <a href="#" class="sidebar-link"><span class="link-icon"><i class="fa-solid fa-gear"></i></span> إعدادات المتجر</a>
+    <a href="/pages/homepage/index.html" class="sidebar-link" target="_blank">
+      <span class="link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span> عرض المتجر
+    </a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user" onclick="logoutAdmin()">
+      <div class="sidebar-avatar" id="sidebarAvatar">أ</div>
+      <div>
+        <div class="sidebar-user-name" id="sidebarName">Admin</div>
+        <div class="sidebar-user-role">مدير النظام</div>
+      </div>
+      <i class="fa-solid fa-arrow-right-from-bracket" style="color:rgba(255,255,255,.3);margin-right:auto;font-size:.8rem"></i>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="admin-main">
+
+  <!-- Topbar -->
+  <div class="admin-topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></button>
+      <div>
+        <div class="topbar-breadcrumb">
+          <a href="/pages/admin/index.html">الرئيسية</a>
+          <i class="fa-solid fa-chevron-left"></i>
+          <span>المنتجات</span>
+        </div>
+        <div class="topbar-title">إدارة المنتجات</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-icon-btn"><i class="fa-regular fa-bell"></i><span class="topbar-notif-dot"></span></button>
+      <button class="btn btn-primary btn-sm" onclick="openAddModal()">
+        <i class="fa-solid fa-plus"></i> إضافة كتاب
+      </button>
+    </div>
+  </div>
+
+  <div class="admin-content">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1>المنتجات <span style="font-size:1rem;color:var(--text-muted);font-family:var(--font-body);font-weight:400" id="totalProductsLabel"></span></h1>
+      <p>إدارة كتب المتجر — إضافة وتعديل وحذف</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="product-stats" id="productStats"></div>
+
+    <!-- Toolbar -->
+    <div class="products-toolbar">
+      <div class="toolbar-left">
+        <div class="search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="ابحث باسم الكتاب أو الكاتب...">
+        </div>
+        <select class="filter-select" id="catFilter">
+          <option value="all">كل الفئات</option>
+          <option value="programming">برمجة</option>
+          <option value="productivity">إدارة الوقت</option>
+          <option value="selfdev">تطوير الذات</option>
+          <option value="design">تصميم</option>
+          <option value="business">أعمال</option>
+          <option value="data">بيانات وذكاء اصطناعي</option>
+        </select>
+        <select class="filter-select" id="stockFilter">
+          <option value="all">كل المخزون</option>
+          <option value="ok">متوفر</option>
+          <option value="low">منخفض (≤5)</option>
+          <option value="out">نفد</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn btn-outline btn-sm" onclick="exportCSV()">
+          <i class="fa-solid fa-file-csv"></i> تصدير
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="openAddModal()">
+          <i class="fa-solid fa-plus"></i> إضافة كتاب
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="products-table-card">
+
+      <!-- Bulk actions -->
+      <div class="bulk-actions-bar" id="bulkBar">
+        <span class="bulk-selected" id="bulkCount">0 محدد</span>
+        <button class="btn btn-outline btn-sm" onclick="bulkToggleAvail(true)"><i class="fa-solid fa-eye"></i> تفعيل</button>
+        <button class="btn btn-outline btn-sm" onclick="bulkToggleAvail(false)"><i class="fa-solid fa-eye-slash"></i> إخفاء</button>
+        <button class="btn btn-sm" style="color:var(--danger);border:1.5px solid var(--border)" onclick="bulkDelete()">
+          <i class="fa-solid fa-trash-can"></i> حذف المحدد
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="clearSelection()" style="margin-right:auto">إلغاء</button>
+      </div>
+
+      <!-- Table header (counts) -->
+      <div class="table-toolbar">
+        <div class="table-toolbar-left">
+          <span class="records-count">عرض <strong id="showingFrom">0</strong>–<strong id="showingTo">0</strong> من <strong id="showingTotal">0</strong> منتج</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-muted)">
+          ترتيب حسب:
+          <select class="filter-select" id="sortSelect" style="padding:5px 8px;font-size:.78rem">
+            <option value="default">الافتراضي</option>
+            <option value="price-asc">السعر: تصاعدي</option>
+            <option value="price-desc">السعر: تنازلي</option>
+            <option value="stock-asc">المخزون: الأقل</option>
+            <option value="name-asc">الاسم: أ-ي</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th class="col-check">
+                <input type="checkbox" class="row-checkbox" id="selectAllCb" onchange="toggleSelectAll(this.checked)">
+              </th>
+              <th onclick="sortBy('title')">الكتاب <i class="fa-solid fa-sort sort-icon"></i></th>
+              <th onclick="sortBy('category')">الفئة <i class="fa-solid fa-sort sort-icon"></i></th>
+              <th onclick="sortBy('price')">السعر <i class="fa-solid fa-sort sort-icon"></i></th>
+              <th onclick="sortBy('stock')">المخزون <i class="fa-solid fa-sort sort-icon"></i></th>
+              <th onclick="sortBy('sold')">المبيعات <i class="fa-solid fa-sort sort-icon"></i></th>
+              <th>متاح</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="productsTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Table footer / pagination -->
+      <div class="table-footer">
+        <div class="per-page-wrap">
+          عرض
+          <select class="per-page-select" id="perPageSelect" onchange="changePerPage(this.value)">
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          في الصفحة
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- ══════════════ ADD/EDIT MODAL ══════════════ -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle"><i class="fa-solid fa-book" style="color:var(--brand-400);margin-left:8px"></i> إضافة كتاب جديد</h2>
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editProductId">
+
+      <!-- Cover image upload -->
+      <div class="form-group">
+        <label class="form-label">صورة الغلاف</label>
+        <div class="image-upload-zone" id="uploadZone" onclick="document.getElementById('imageInput').click()"
+          ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <img class="image-preview" id="imagePreview" src="" alt="preview">
+          <div id="uploadPlaceholder">
+            <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <div class="upload-text">اسحب الصورة هنا أو اضغط للاختيار</div>
+            <div class="upload-hint">PNG, JPG حتى 5MB</div>
+          </div>
+        </div>
+        <input type="file" id="imageInput" class="upload-input" accept="image/*" onchange="handleImageSelect(this)">
+      </div>
+
+      <div class="modal-row">
+        <div class="form-group">
+          <label class="form-label" for="mTitle">اسم الكتاب <span style="color:var(--danger)">*</span></label>
+          <input type="text" id="mTitle" class="form-input" placeholder="Clean Code">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mAuthor">الكاتب <span style="color:var(--danger)">*</span></label>
+          <input type="text" id="mAuthor" class="form-input" placeholder="Robert C. Martin">
+        </div>
+      </div>
+
+      <div class="modal-row triple">
+        <div class="form-group">
+          <label class="form-label" for="mCategory">الفئة <span style="color:var(--danger)">*</span></label>
+          <select id="mCategory" class="form-input">
+            <option value="">اختر الفئة</option>
+            <option value="programming">برمجة</option>
+            <option value="productivity">إدارة الوقت</option>
+            <option value="selfdev">تطوير الذات</option>
+            <option value="design">تصميم</option>
+            <option value="business">أعمال</option>
+            <option value="data">بيانات وذكاء اصطناعي</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mPublisher">الناشر</label>
+          <input type="text" id="mPublisher" class="form-input" placeholder="O'Reilly">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mYear">سنة النشر</label>
+          <input type="number" id="mYear" class="form-input" placeholder="2024" min="1900" max="2030" dir="ltr">
+        </div>
+      </div>
+
+      <div class="modal-row triple">
+        <div class="form-group">
+          <label class="form-label" for="mPrice">السعر (ج.م) <span style="color:var(--danger)">*</span></label>
+          <input type="number" id="mPrice" class="form-input" placeholder="299" min="0" dir="ltr" oninput="updateDiscount()">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mOldPrice">السعر قبل الخصم</label>
+          <input type="number" id="mOldPrice" class="form-input" placeholder="350" min="0" dir="ltr" oninput="updateDiscount()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">نسبة الخصم</label>
+          <div class="form-input" id="discountPreview"
+            style="background:var(--gray-50);color:var(--text-hint);display:flex;align-items:center">—</div>
+        </div>
+      </div>
+
+      <div class="modal-row triple">
+        <div class="form-group">
+          <label class="form-label" for="mStock">المخزون <span style="color:var(--danger)">*</span></label>
+          <input type="number" id="mStock" class="form-input" placeholder="50" min="0" dir="ltr">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mPages">عدد الصفحات</label>
+          <input type="number" id="mPages" class="form-input" placeholder="400" min="1" dir="ltr">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mLanguage">اللغة</label>
+          <select id="mLanguage" class="form-input">
+            <option value="إنجليزي">إنجليزي</option>
+            <option value="عربي">عربي</option>
+            <option value="ثنائي اللغة">ثنائي اللغة</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-row">
+        <div class="form-group">
+          <label class="form-label" for="mISBN">ISBN</label>
+          <input type="text" id="mISBN" class="form-input" placeholder="978-xxxxxxxxxx" dir="ltr">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mAvailable">الحالة</label>
+          <select id="mAvailable" class="form-input">
+            <option value="true">متاح للبيع</option>
+            <option value="false">مخفي</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group modal-row single">
+        <label class="form-label" for="mDesc">وصف الكتاب</label>
+        <textarea id="mDesc" class="form-input" rows="4"
+          placeholder="وصف مختصر للكتاب يظهر في صفحة التفاصيل..."></textarea>
+      </div>
+    </div>
+
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal()">إلغاء</button>
+      <button class="btn btn-primary" id="saveBtn" onclick="saveProduct()">
+        <i class="fa-solid fa-floppy-disk"></i> حفظ الكتاب
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DELETE MODAL ══════════════ -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="delete-modal">
+    <div class="delete-icon"><i class="fa-solid fa-trash-can"></i></div>
+    <h3>حذف الكتاب</h3>
+    <p id="deleteMsg">هل أنت متأكد من حذف هذا الكتاب؟ لا يمكن التراجع عن هذا الإجراء.</p>
+    <div class="delete-modal-btns">
+      <button class="btn btn-outline" onclick="closeDeleteModal()">إلغاء</button>
+      <button class="btn" style="background:var(--danger);color:#fff;border-color:var(--danger)" id="confirmDeleteBtn" onclick="confirmDelete()">
+        <i class="fa-solid fa-trash-can"></i> حذف
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="../../../assets/js/utils.js"></script>
+<script src="../../../assets/js/auth.js"></script>
+<script src="../../../assets/js/api.js"></script>
+<script src="products-admin.js"></script>
+</body>
+</html>

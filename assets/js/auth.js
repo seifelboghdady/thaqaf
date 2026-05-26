@@ -77,7 +77,7 @@ function requireAdmin() {
 function redirectIfLoggedIn() {
   if (!authIsLoggedIn()) return;
   if (authIsAdmin()) {
-    window.location.href = '/thaqaf/admin/index.html';
+    window.location.href = '/pages/admin/index.html';
   } else {
     window.location.href = '/pages/homepage/index.html';
   }
