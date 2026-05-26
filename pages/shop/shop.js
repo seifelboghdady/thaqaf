@@ -174,7 +174,8 @@ function renderGridCard(b, i) {
 
   return `
   <div class="book-card" style="animation-delay:${i*0.04}s" onclick="goToDetail('${b.id}')">
-    <div class="book-cover" style="background:${getCoverColor(b.category, b.id)}">
+  <div class="book-cover" style=" ${b.image ? `background-image:url(${API_BASE.replace('/api', '')}/${b.image}); background-size:cover; background-position:center;` : `background:${getCoverColor(b.category, b.id)}`}">
+  
       <i class="fa-solid fa-book-open"></i>
       ${b.title}
       ${badgeHtml}
