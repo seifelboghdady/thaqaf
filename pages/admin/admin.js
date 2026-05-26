@@ -307,6 +307,7 @@ function renderTopBooks() {
     <div class="top-book-item">
       <div class="rank-num ${rankClasses[i] || ''}">${i + 1}</div>
       <div class="top-book-cover" style="background:${getCover(b.category,b.id)}">
+     
         <i class="fa-solid fa-book-open"></i>
         ${b.title}
       </div>
@@ -354,7 +355,7 @@ function closeSidebar() {
 ══════════════════════════════════════════════ */
 function logoutAdmin() {
   authLogout();
-  window.location.href = '/thaqaf/pages/auth/login.html';
+  window.location.href = '/pages/auth/login.html';
 }
 
 /* ══════════════════════════════════════════════
