@@ -84,7 +84,6 @@ async function loadProducts() {
   try {
     const data = await productsAPI.getAll();
     allProducts = data.products || data || [];
-    state.totalPages = data.totalPages || 1;
     if (!allProducts.length) allProducts = [...mockProducts];
   } catch {
     allProducts = [...mockProducts];

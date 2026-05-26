@@ -75,6 +75,7 @@ async function loadProducts() {
     const data = await productsAPI.getAll(state.page, state.perPage);
     state.totalPages = data.totalPages || 1;
     state.all = data.data || data.products || data || [];
+    console.log(data);
   } catch {
     state.all = getMockProducts();
   }
@@ -124,7 +125,7 @@ function applyFiltersAndRender() {
   }
 
   state.filtered = items;
-  state.page = 1;
+  // state.page = 1;
   updateCount();
   updateActiveFilterTags();
   renderPage();
