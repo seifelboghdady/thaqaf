@@ -17,10 +17,12 @@ if (user) {
   document.getElementById('city').value = user.city || '';
 
   const avatar = document.getElementById('profileAvatar');
-
+  console.log("Image from API:", user.image);
   if (user.image) {
+    const imageUrl = `http://localhost:3000/${user.image}`;
+    console.log("Final image URL:", imageUrl);
     avatar.innerHTML = `
-      <img src="${user.image}" alt="avatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />
+      <img src="${imageUrl}" alt="avatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />
     `;
   } else {
     avatar.textContent = (user.name || 'U')[0];
