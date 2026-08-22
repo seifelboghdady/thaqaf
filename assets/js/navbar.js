@@ -61,8 +61,9 @@ function initNavbar(activePage = '') {
     // ════════ الإصلاح الفعلي لعرض الصورة ════════
     if (avatarBtn) {
       if (user.image) {
+        const imageUrl = `http://localhost:3000/${user.image}`;
         // إذا كان هناك صورة، يتم حقنها داخل زر الـ avatar واستبدال النص التلقائي
-        avatarBtn.innerHTML = `<img src="${user.image}" alt="${user.name}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />`;
+        avatarBtn.innerHTML = `<img src="${imageUrl}" alt="${user.name}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" />`;
       } else if (avatarText) {
         // العودة للحرف الأول إذا لم تكن الصورة مرفوعة
         avatarText.textContent = user.name?.charAt(0) || 'U';
