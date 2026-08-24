@@ -48,7 +48,7 @@ function authIsAdmin() {
  */
 function requireAuth() {
   if (!authIsLoggedIn()) {
-    window.location.href = '../../../homepage/home.html';
+    window.location.href = '../../../homepage/index.html';
     return false;
   }
   return true;
