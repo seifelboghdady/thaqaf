@@ -48,7 +48,7 @@ function authIsAdmin() {
  */
 function requireAuth() {
   if (!authIsLoggedIn()) {
-    window.location.href = '../../pages/homepage/home.html';
+    window.location.href = '../../../homepage/home.html';
     return false;
   }
   return true;
@@ -60,11 +60,11 @@ function requireAuth() {
  */
 function requireAdmin() {
   if (!authIsLoggedIn()) {
-    window.location.href = '/pages/auth/login.html';
+    window.location.href = '/../auth/login.html';
     return false;
   }
   if (!authIsAdmin()) {
-    window.location.href = '/pages/homepage/index.html';
+    window.location.href = '/../homepage/index.html';
     return false;
   }
   return true;
@@ -77,8 +77,8 @@ function requireAdmin() {
 function redirectIfLoggedIn() {
   if (!authIsLoggedIn()) return;
   if (authIsAdmin()) {
-    window.location.href = '/pages/admin/index.html';
+    window.location.href = '/../admin/index.html';
   } else {
-    window.location.href = '/pages/homepage/index.html';
+    window.location.href = '/../homepage/index.html';
   }
 }

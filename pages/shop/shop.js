@@ -480,7 +480,7 @@ function goToDetail(id) {
 async function addToCart(productId, btn) {
   if (!authIsLoggedIn()) {
     showToast('سجّل دخولك أولاً لإضافة منتجات للعربة', 'info');
-    setTimeout(() => window.location.href = '/pages/auth/login.html', 1200);
+    setTimeout(() => window.location.href = '../auth/login.html', 1200);
     return;
   }
 

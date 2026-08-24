@@ -35,7 +35,7 @@ function initNavbar(activePage = '') {
   document.querySelectorAll('[data-action=\"logout\"]').forEach(btn => {
     btn.addEventListener('click', () => {
       authLogout();
-      window.location.href = '/pages/auth/login.html';
+      window.location.href = '../auth/login.html';
     });
   });
 

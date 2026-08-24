@@ -1,4 +1,4 @@
-# pages/cart/cart.html
+# ../cart/cart.html
 
 ```html
 <!DOCTYPE html>
@@ -18,19 +18,19 @@
     <div class="container">
       <div class="navbar-inner">
 
-        <a href="/pages/homepage/index.html" class="nav-logo">
+        <a href="../homepage/index.html" class="nav-logo">
           <div class="nav-logo-icon">ث</div>
           <span class="nav-logo-name">ثقف</span>
         </a>
 
         <div class="nav-links">
-          <a href="/pages/homepage/index.html" class="nav-link">الرئيسية</a>
-          <a href="/pages/shop/products.html" class="nav-link">المتجر</a>
-          <a href="/pages/cart/cart.html" class="nav-link active">العربة</a>
+          <a href="../homepage/index.html" class="nav-link">الرئيسية</a>
+          <a href="../shop/products.html" class="nav-link">المتجر</a>
+          <a href="../cart/cart.html" class="nav-link active">العربة</a>
         </div>
 
         <div class="nav-actions">
-          <a href="/pages/cart/cart.html" class="nav-icon-btn active">
+          <a href="../cart/cart.html" class="nav-icon-btn active">
             <i class="fa-solid fa-bag-shopping"></i>
             <span class="nav-badge" id="cartBadge">0</span>
           </a>
@@ -140,7 +140,7 @@
         <h2>العربة فارغة</h2>
         <p>لم تقم بإضافة أي كتب بعد. ابدأ رحلتك المعرفية الآن ✨</p>
 
-        <a href="/pages/shop/products.html" class="shop-btn">
+        <a href="../shop/products.html" class="shop-btn">
           تصفح الكتب
           <i class="fa-solid fa-arrow-left"></i>
         </a>
@@ -174,7 +174,7 @@
 
 ---
 
-# pages/cart/cart.css
+# ../cart/cart.css
 
 ```css
 @import url('../../assets/css/global.css');

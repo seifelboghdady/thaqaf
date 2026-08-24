@@ -356,7 +356,7 @@ function closeSidebar() {
 ══════════════════════════════════════════════ */
 function logoutAdmin() {
   authLogout();
-  window.location.href = '/pages/auth/login.html';
+  window.location.href = '../auth/login.html';
 }
 
 /* ══════════════════════════════════════════════

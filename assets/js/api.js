@@ -31,7 +31,7 @@ async function request(endpoint, options = {}) {
     // Token expired أو غير صالح
     if (res.status === 401) {
       authLogout();
-      window.location.href = '/pages/auth/login.html';
+      window.location.href = '../auth/login.html';
       return;
     }
 
@@ -99,7 +99,7 @@ const profileAPI = {
     }).then(async (res) => {
       if (res.status === 401) {
         authLogout();
-        window.location.href = '/pages/auth/login.html';
+        window.location.href = '../auth/login.html';
         return;
       }
       const data = await res.json();
@@ -108,5 +108,5 @@ const profileAPI = {
     });
   },
 
-  updatePassword: (data) => api.put('pages/profile/password', data)
+  updatePassword: (data) => api.put('../profile/password', data)
 };

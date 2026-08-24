@@ -232,7 +232,7 @@ function renderTable() {
           <button class="row-action-btn" onclick="openEditModal('${p.id}')" title="تعديل">
             <i class="fa-solid fa-pen"></i>
           </button>
-          <a href="/thaqaf/pages/shop/product-detail.html?id=${p.id}" target="_blank"
+          <a href="/thaqaf../shop/product-detail.html?id=${p.id}" target="_blank"
             class="row-action-btn" title="عرض في المتجر">
             <i class="fa-solid fa-eye"></i>
           </a>
@@ -614,7 +614,7 @@ function exportCSV() {
 function openSidebar()  { document.getElementById('adminSidebar').classList.add('open');    document.getElementById('sidebarOverlay').classList.add('open'); }
 function closeSidebar() { document.getElementById('adminSidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
 
-function logoutAdmin() { authLogout(); window.location.href = '/pages/auth/login.html'; }
+function logoutAdmin() { authLogout(); window.location.href = '../auth/login.html'; }
 
 /* ══════════════════════════════════════════════
    EVENT LISTENERS

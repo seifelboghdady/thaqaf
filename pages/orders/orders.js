@@ -291,7 +291,7 @@ function renderOrderCard(order, idx) {
           const qty = item.OrderProduct ? item.OrderProduct.quantity : (item.quantity || 1);
           return `
           <div class="expanded-item"
-            onclick="window.location.href='/pages/shop/product-detail.html?id=${prodId}'">
+            onclick="window.location.href='../shop/product-detail.html?id=${prodId}'">
             <div class="exp-cover"
               style="background:${getCover(prod.category, prodId)}">
               <i class="fa-solid fa-book-open"></i>
@@ -454,7 +454,7 @@ function reorder(orderId) {
     const badge = document.getElementById('cartBadge');
     if (badge) { badge.textContent = current + count; badge.style.display = 'flex'; }
     showToast('تمت إضافة الكتب للعربة ✓', 'success');
-    setTimeout(() => window.location.href = '/pages/cart/cart.html', 800);
+    setTimeout(() => window.location.href = '../cart/cart.html', 800);
   }, 700);
 }
 
@@ -492,7 +492,7 @@ document.getElementById('orderSearch')?.addEventListener('input', debounce(e => 
 /* Navbar search */
 document.getElementById('navSearchInput')?.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.value.trim())
-    window.location.href = `/pages/shop/products.html?q=${encodeURIComponent(e.target.value.trim())}`;
+    window.location.href = `../shop/products.html?q=${encodeURIComponent(e.target.value.trim())}`;
 });
 
 /* ══════════════════════════════════════════════
