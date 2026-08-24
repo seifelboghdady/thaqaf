@@ -1,5 +1,5 @@
 /**
- * auth.js (pages/auth) — Login & Register logic for ثقف
+ * auth.js (../auth) — Login & Register logic for ثقف
  */
 
 /* ── Redirect if already logged in ─────────── */
@@ -60,7 +60,7 @@ if (isLoginPage) {
       showToast('مرحبًا بعودتك! 👋', 'success');
 
       setTimeout(() => {
-        window.location.href = '/pages/homepage/index.html';
+        window.location.href = '../homepage/index.html';
       }, 800);
 
     } catch (err) {
@@ -207,7 +207,7 @@ if (!isLoginPage) {
       showToast('تم إنشاء حسابك بنجاح! 🎉', 'success');
 
       setTimeout(() => {
-        window.location.href = '/pages/homepage/index.html';
+        window.location.href = '../homepage/index.html';
       }, 900);
 
     } catch (err) {

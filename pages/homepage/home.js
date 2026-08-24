@@ -96,14 +96,14 @@ function renderNew(books) {
 
 /* ── Navigate to product ── */
 function goToProduct(id) {
-  window.location.href = `/pages/shop/product-detail.html?id=${id}`;
+  window.location.href = `../shop/product-detail.html?id=${id}`;
 }
 
 /* ── Add to cart ── */
 async function addToCart(productId, btn) {
   if (!authIsLoggedIn()) {
     showToast('سجّل دخولك أولاً لإضافة منتجات للعربة', 'info');
-    setTimeout(() => window.location.href = '/pages/auth/login.html', 1200);
+    setTimeout(() => window.location.href = '../auth/login.html', 1200);
     return;
   }
   const icon = btn.querySelector('i');
@@ -174,7 +174,7 @@ document.getElementById('promoCopyBtn')?.addEventListener('click', () => {
 const navSearchInput = document.getElementById('navSearchInput');
 navSearchInput?.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && navSearchInput.value.trim()) {
-    window.location.href = `/pages/shop/products.html?q=${encodeURIComponent(navSearchInput.value.trim())}`;
+    window.location.href = `../shop/products.html?q=${encodeURIComponent(navSearchInput.value.trim())}`;
   }
 });
 

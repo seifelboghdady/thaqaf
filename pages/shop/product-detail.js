@@ -255,7 +255,7 @@ function renderReviews(reviews) {
   if (!authIsLoggedIn()) {
     document.getElementById('writeReviewBox').innerHTML = `
       <div style="text-align:center;padding:16px;color:var(--text-muted);font-size:.88rem">
-        <a href="/pages/auth/login.html" style="color:var(--brand-500);font-weight:600">سجّل دخولك</a>
+        <a href="../auth/login.html" style="color:var(--brand-500);font-weight:600">سجّل دخولك</a>
         لإضافة تقييم
       </div>`;
   }
@@ -303,7 +303,7 @@ function changeQty(delta) {
 async function addToCart() {
   if (!authIsLoggedIn()) {
     showToast('سجّل دخولك أولاً لإضافة منتجات للعربة', 'info');
-    setTimeout(() => window.location.href = '/pages/auth/login.html', 1200);
+    setTimeout(() => window.location.href = '../auth/login.html', 1200);
     return;
   }
   const btn = document.getElementById('addCartBtn');
@@ -325,11 +325,11 @@ async function addToCart() {
 function buyNow() {
   if (!authIsLoggedIn()) {
     showToast('سجّل دخولك أولاً', 'info');
-    setTimeout(() => window.location.href = '/pages/auth/login.html', 1200);
+    setTimeout(() => window.location.href = '../auth/login.html', 1200);
     return;
   }
   localStorage.setItem('thaqaf_buynow', JSON.stringify({ productId: product.id, quantity: qty }));
-  window.location.href = '/pages/checkout/checkout.html?buynow=1';
+  window.location.href = '../checkout/checkout.html?buynow=1';
 }
 
 /* Wishlist */
